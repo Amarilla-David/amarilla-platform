@@ -42,6 +42,7 @@ export interface NavItem {
   resource: Resource
   requiredLevel: AccessLevel
   mobileNav: boolean
+  section?: string
 }
 
 export const NAV_ITEMS: NavItem[] = [
@@ -100,5 +101,118 @@ export const NAV_ITEMS: NavItem[] = [
     resource: "admin",
     requiredLevel: "admin",
     mobileNav: false,
+  },
+]
+
+// Navigation items for project-scoped views
+// href is relative — prepend /projects/[projectId] at render time
+// section: used as header label; "---": renders a divider line
+export const PROJECT_NAV_ITEMS: NavItem[] = [
+  {
+    label: "Dashboard",
+    href: "",
+    icon: "LayoutDashboard",
+    resource: "projects",
+    requiredLevel: "read",
+    mobileNav: true,
+  },
+  {
+    label: "Space View",
+    href: "/space-view",
+    icon: "Box",
+    resource: "projects",
+    requiredLevel: "read",
+    mobileNav: false,
+    section: "PROJECT DEFINITIONS",
+  },
+  {
+    label: "Product View",
+    href: "/product-view",
+    icon: "Package",
+    resource: "projects",
+    requiredLevel: "read",
+    mobileNav: false,
+    section: "PROJECT DEFINITIONS",
+  },
+  {
+    label: "Finish Schedule",
+    href: "/finish-schedule",
+    icon: "Palette",
+    resource: "projects",
+    requiredLevel: "read",
+    mobileNav: false,
+    section: "PROJECT DEFINITIONS",
+  },
+  {
+    label: "Takeoff",
+    href: "/takeoff",
+    icon: "Ruler",
+    resource: "projects",
+    requiredLevel: "read",
+    mobileNav: false,
+    section: "---",
+  },
+  {
+    label: "Project Team",
+    href: "/team",
+    icon: "Users",
+    resource: "projects",
+    requiredLevel: "read",
+    mobileNav: true,
+    section: "---",
+  },
+  {
+    label: "Permits & Inspections",
+    href: "/permits",
+    icon: "ClipboardCheck",
+    resource: "projects",
+    requiredLevel: "read",
+    mobileNav: false,
+    section: "---",
+  },
+  {
+    label: "Budget",
+    href: "/budget",
+    icon: "DollarSign",
+    resource: "budgets",
+    requiredLevel: "read",
+    mobileNav: true,
+    section: "---",
+  },
+  {
+    label: "Schedule",
+    href: "/schedule",
+    icon: "CalendarDays",
+    resource: "schedules",
+    requiredLevel: "read",
+    mobileNav: true,
+    section: "---",
+  },
+  {
+    label: "SCM",
+    href: "/scm",
+    icon: "Truck",
+    resource: "projects",
+    requiredLevel: "read",
+    mobileNav: false,
+    section: "---",
+  },
+  {
+    label: "H,S&WB",
+    href: "/health-safety",
+    icon: "HardHat",
+    resource: "projects",
+    requiredLevel: "read",
+    mobileNav: false,
+    section: "---",
+  },
+  {
+    label: "Live Camera",
+    href: "/live-camera",
+    icon: "Camera",
+    resource: "projects",
+    requiredLevel: "read",
+    mobileNav: true,
+    section: "---",
   },
 ]

@@ -2,29 +2,31 @@
 
 import { useState } from "react"
 import { Menu } from "lucide-react"
-import { Sidebar } from "./sidebar"
+import { ProjectSidebar } from "./project-sidebar"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
   SheetTitle,
 } from "@/components/ui/sheet"
+import { useProject } from "@/hooks/use-project"
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function ProjectShell({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { project } = useProject()
 
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Desktop sidebar — always visible on lg+ */}
       <div className="hidden lg:flex">
-        <Sidebar />
+        <ProjectSidebar />
       </div>
 
       {/* Mobile drawer */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetContent side="left" className="!w-[240px] !border-none !p-0 !gap-0" showCloseButton={false}>
-          <SheetTitle className="sr-only">Menu</SheetTitle>
-          <Sidebar />
+          <SheetTitle className="sr-only">{project.name}</SheetTitle>
+          <ProjectSidebar />
         </SheetContent>
       </Sheet>
 

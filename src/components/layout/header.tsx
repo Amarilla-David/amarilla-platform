@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useAuthContext } from "@/components/providers/auth-provider"
+import { Logo } from "@/components/brand/logo"
 
 interface HeaderProps {
   onMenuToggle?: () => void
@@ -35,8 +36,8 @@ export function Header({ onMenuToggle, showMenuButton = false }: HeaderProps) {
           </Button>
         )}
 
-        <div className="flex-1">
-          <h1 className="text-lg font-semibold truncate">Plataforma</h1>
+        <div className="flex-1 lg:hidden">
+          <Logo variant="dark" size="sm" />
         </div>
 
         <DropdownMenu>

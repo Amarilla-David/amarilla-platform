@@ -79,12 +79,12 @@ export function LoginForm() {
             )}
           </div>
           {error && (
-            <div className="bg-red-50 text-red-600 text-sm p-3 rounded-md">
+            <div className="bg-red-500/10 text-red-400 text-sm p-3 rounded-md border border-red-500/20">
               {error}
             </div>
           )}
         </CardContent>
-        <CardFooter>
+        <CardFooter className="pt-4">
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Ingresando..." : "Ingresar"}
           </Button>
