@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Plataforma de Construccion",
   description: "Plataforma operativa para construccion de lujo",
+  icons: {
+    icon: "/amarilla_favicon.png",
+  },
 }
 
 export default function RootLayout({

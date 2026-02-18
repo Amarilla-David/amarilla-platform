@@ -51,8 +51,10 @@ export async function airtableFetch<T = Record<string, unknown>>(
   })
 
   if (!response.ok) {
+    const errorBody = await response.json().catch(() => ({}))
+    console.error("Airtable fetch error body:", JSON.stringify(errorBody, null, 2))
     throw new Error(
-      `Airtable API error: ${response.status} ${response.statusText}`
+      `Airtable API error: ${response.status} — ${errorBody?.error?.message ?? response.statusText}`
     )
   }
 
@@ -76,7 +78,11 @@ export async function airtableCreate<T = Record<string, unknown>>(
   })
 
   if (!response.ok) {
-    throw new Error(`Airtable create error: ${response.status}`)
+    const errorBody = await response.json().catch(() => ({}))
+    console.error("Airtable create error body:", JSON.stringify(errorBody, null, 2))
+    throw new Error(
+      `Airtable create error: ${response.status} — ${errorBody?.error?.message ?? JSON.stringify(errorBody)}`
+    )
   }
 
   return response.json()
