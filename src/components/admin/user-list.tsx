@@ -26,6 +26,7 @@ const ROLE_COLORS: Record<Role, string> = {
   manager: "bg-blue-50 text-blue-700 border-blue-200",
   employee: "bg-green-50 text-green-700 border-green-200",
   client: "bg-purple-50 text-purple-700 border-purple-200",
+  foreman: "bg-orange-50 text-orange-700 border-orange-200",
 }
 
 export function UserList({ users, loading, onRefresh }: UserListProps) {
@@ -82,6 +83,7 @@ export function UserList({ users, loading, onRefresh }: UserListProps) {
                 <SelectItem value="manager">Manager</SelectItem>
                 <SelectItem value="employee">Employee</SelectItem>
                 <SelectItem value="client">Client</SelectItem>
+                <SelectItem value="foreman">Foreman</SelectItem>
               </SelectContent>
             </Select>
           </CardContent>

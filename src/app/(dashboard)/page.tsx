@@ -79,6 +79,9 @@ export default function DashboardPage() {
           .select("id, name, client_name, status")
           .order("name")
         setProjects(data ?? [])
+      } else if (profile?.role === "foreman") {
+        router.push("/timesheet/construction")
+        return
       } else if (profile?.role === "client") {
         // Client: fetch assigned projects and redirect
         const { data: permissions } = await supabase

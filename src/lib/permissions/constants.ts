@@ -33,6 +33,10 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<
     resources: ["documents", "schedules"],
     defaultLevel: "read",
   },
+  foreman: {
+    resources: ["timesheet"],
+    defaultLevel: "read",
+  },
 }
 
 export interface NavItem {

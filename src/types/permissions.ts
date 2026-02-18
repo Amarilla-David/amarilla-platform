@@ -1,4 +1,4 @@
-export type Role = "admin" | "manager" | "employee" | "client"
+export type Role = "admin" | "manager" | "employee" | "client" | "foreman"
 
 export type Resource =
   | "timesheet"
