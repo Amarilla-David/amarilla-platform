@@ -6,11 +6,13 @@ import { Input } from "@/components/ui/input"
 import { useConstructionProjects } from "@/hooks/use-construction-timesheet"
 import { useWizard } from "../wizard-provider"
 import { cn } from "@/lib/utils"
+import { useTranslations } from "next-intl"
 
 export function StepProject() {
   const { dispatch } = useWizard()
   const { data, isLoading } = useConstructionProjects()
   const [search, setSearch] = useState("")
+  const t = useTranslations("timesheet.wizard")
 
   const projects = (data?.projects ?? []).filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase())
@@ -34,7 +36,7 @@ export function StepProject() {
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
-          placeholder="Buscar obra..."
+          placeholder={t("searchProject")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="pl-9 h-11"
@@ -66,7 +68,7 @@ export function StepProject() {
 
         {projects.length === 0 && (
           <p className="text-center text-muted-foreground py-8">
-            No se encontraron obras
+            {t("noProjects")}
           </p>
         )}
       </div>

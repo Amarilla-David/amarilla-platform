@@ -1,8 +1,13 @@
-export default function TimesheetServicesPage() {
+import { getTranslations } from "next-intl/server"
+
+export default async function TimesheetServicesPage() {
+  const t = await getTranslations("timesheet")
+  const tCommon = await getTranslations("common")
+
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">Timesheet — Services</h1>
-      <p className="text-muted-foreground">Proximamente...</p>
+      <h1 className="text-2xl font-bold">{t("servicesPage.title")}</h1>
+      <p className="text-muted-foreground">{tCommon("comingSoon")}</p>
     </div>
   )
 }

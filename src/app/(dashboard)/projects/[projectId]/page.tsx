@@ -11,45 +11,55 @@ import {
   CalendarDays,
   Users,
 } from "lucide-react"
-import {
-  PROJECT_STATUS_LABELS,
-  PROJECT_STATUS_COLORS,
-} from "@/types/project"
+import { PROJECT_STATUS_COLORS } from "@/types/project"
 import type { ProjectStatus } from "@/types/project"
+import { useTranslations } from "next-intl"
+import type { LucideIcon } from "lucide-react"
 
-const OVERVIEW_CARDS = [
+interface OverviewCard {
+  titleKey: string
+  descKey: string
+  icon: LucideIcon
+  value: string
+  color: string
+}
+
+const OVERVIEW_CARDS: OverviewCard[] = [
   {
-    title: "Documentos",
+    titleKey: "overviewCards.documentsTitle",
     icon: FileText,
     value: "—",
-    description: "Planos y contratos",
+    descKey: "overviewCards.documentsDesc",
     color: "text-purple-600",
   },
   {
-    title: "Presupuesto",
+    titleKey: "overviewCards.budgetTitle",
     icon: DollarSign,
     value: "—",
-    description: "Control de costos",
+    descKey: "overviewCards.budgetDesc",
     color: "text-yellow-600",
   },
   {
-    title: "Cronograma",
+    titleKey: "overviewCards.scheduleTitle",
     icon: CalendarDays,
     value: "—",
-    description: "Hitos del proyecto",
+    descKey: "overviewCards.scheduleDesc",
     color: "text-orange-600",
   },
   {
-    title: "Equipo",
+    titleKey: "overviewCards.teamTitle",
     icon: Users,
     value: "—",
-    description: "Miembros asignados",
+    descKey: "overviewCards.teamDesc",
     color: "text-blue-600",
   },
 ]
 
 export default function ProjectDashboardPage() {
   const { project } = useProject()
+  const t = useTranslations("projects")
+
+  const statusKey = `status.${project.status}`
 
   return (
     <div className="space-y-6">
@@ -66,8 +76,9 @@ export default function ProjectDashboardPage() {
               "bg-gray-50 text-gray-700 border-gray-200"
             }
           >
-            {PROJECT_STATUS_LABELS[project.status as ProjectStatus] ??
-              project.status}
+            {t.has(statusKey)
+              ? t(statusKey)
+              : project.status}
           </Badge>
         </div>
       </div>
@@ -76,9 +87,9 @@ export default function ProjectDashboardPage() {
       <div className="space-y-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Informacion General
+            {t("generalInfo")}
           </p>
-          <h2 className="text-xl font-bold">Resumen del Proyecto</h2>
+          <h2 className="text-xl font-bold">{t("overview")}</h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -87,7 +98,7 @@ export default function ProjectDashboardPage() {
               <Building2 className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs font-medium text-muted-foreground uppercase">
-                  Cliente
+                  {t("client")}
                 </p>
                 <p className="text-sm font-medium">{project.clientName}</p>
               </div>
@@ -97,10 +108,10 @@ export default function ProjectDashboardPage() {
             <MapPin className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
             <div>
               <p className="text-xs font-medium text-muted-foreground uppercase">
-                Ubicacion
+                {t("location")}
               </p>
               <p className="text-sm font-medium text-muted-foreground">
-                Por definir
+                {t("tbd")}
               </p>
             </div>
           </div>
@@ -110,11 +121,11 @@ export default function ProjectDashboardPage() {
       {/* Stats cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {OVERVIEW_CARDS.map((card) => (
-          <Card key={card.title}>
+          <Card key={card.titleKey}>
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  {card.title}
+                  {t(card.titleKey)}
                 </CardTitle>
                 <card.icon className={`h-4 w-4 ${card.color}`} />
               </div>
@@ -122,7 +133,7 @@ export default function ProjectDashboardPage() {
             <CardContent>
               <p className="text-2xl font-bold">{card.value}</p>
               <p className="text-xs text-muted-foreground">
-                {card.description}
+                {t(card.descKey)}
               </p>
             </CardContent>
           </Card>

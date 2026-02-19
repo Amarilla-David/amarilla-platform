@@ -27,6 +27,7 @@ import { PROJECT_NAV_ITEMS } from "@/lib/permissions/constants"
 import { Logo } from "@/components/brand/logo"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { useTranslations } from "next-intl"
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard,
@@ -49,6 +50,7 @@ export function ProjectSidebar() {
   const { hasPermission } = usePermissions()
   const { project } = useProject()
   const { profile, signOut } = useAuthContext()
+  const t = useTranslations()
 
   const basePath = `/projects/${project.id}`
 
@@ -57,14 +59,14 @@ export function ProjectSidebar() {
   )
 
   // Group items by section
-  const sections: { section: string | null; items: typeof visibleItems }[] = []
-  let currentSection: string | null = null
+  const sections: { sectionKey: string | null; items: typeof visibleItems }[] = []
+  let currentSectionKey: string | null = null
 
   for (const item of visibleItems) {
-    const itemSection = item.section ?? null
-    if (itemSection !== currentSection) {
-      currentSection = itemSection
-      sections.push({ section: itemSection, items: [item] })
+    const itemSectionKey = item.sectionKey ?? null
+    if (itemSectionKey !== currentSectionKey) {
+      currentSectionKey = itemSectionKey
+      sections.push({ sectionKey: itemSectionKey, items: [item] })
     } else {
       sections[sections.length - 1].items.push(item)
     }
@@ -89,12 +91,12 @@ export function ProjectSidebar() {
       <nav className="flex-1 px-3 py-2 overflow-y-auto">
         {sections.map((section, idx) => (
           <div key={idx}>
-            {section.section && section.section !== "---" && (
+            {section.sectionKey && section.sectionKey !== "---" && (
               <p className="px-3 pt-5 pb-1.5 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                {section.section}
+                {t(section.sectionKey)}
               </p>
             )}
-            {section.section === "---" && idx > 0 && (
+            {section.sectionKey === "---" && idx > 0 && (
               <hr className="my-2 border-gray-200" />
             )}
             {section.items.map((item) => {
@@ -124,7 +126,7 @@ export function ProjectSidebar() {
                       )}
                     />
                   )}
-                  <span>{item.label}</span>
+                  <span>{t(item.labelKey)}</span>
                 </Link>
               )
             })}
@@ -143,7 +145,7 @@ export function ProjectSidebar() {
             <p className="text-sm font-semibold truncate">{project.name}</p>
             <div className="flex items-center gap-1 text-[10px] text-green-600 font-medium">
               <RefreshCw className="h-2.5 w-2.5" />
-              SYNCING...
+              {t("common.syncing")}
             </div>
           </div>
         </div>

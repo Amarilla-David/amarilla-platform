@@ -21,6 +21,7 @@ import {
   TIPO_DE_HORAS_OPTIONS,
   type TipoDeHoras,
 } from "@/types/construction-timesheet"
+import { useTranslations } from "next-intl"
 
 export function StepWorkerDetails() {
   const { state, dispatch } = useWizard()
@@ -29,6 +30,8 @@ export function StepWorkerDetails() {
   const [showApplyAll, setShowApplyAll] = useState(false)
   const [bulkHours, setBulkHours] = useState(8)
   const [bulkTipo, setBulkTipo] = useState<TipoDeHoras>("Horas normales")
+  const t = useTranslations("timesheet.wizard")
+  const tTipo = useTranslations("tipoDeHoras")
 
   const details = detailsData?.details ?? []
 
@@ -65,13 +68,13 @@ export function StepWorkerDetails() {
     <div className="flex flex-col gap-3 p-4">
       <div className="text-sm text-muted-foreground space-y-0.5">
         <p>
-          Obra: <span className="font-medium text-foreground">{state.selectedProjectName}</span>
+          {t("projectLabel")} <span className="font-medium text-foreground">{state.selectedProjectName}</span>
         </p>
         <p>
-          Tarea: <span className="font-medium text-foreground">{state.selectedProjectPlanName}</span>
+          {t("planLabel")} <span className="font-medium text-foreground">{state.selectedProjectPlanName}</span>
         </p>
         <p>
-          Trabajadores: <span className="font-medium text-foreground">{state.workerEntries.length}</span>
+          {t("workersLabel")} <span className="font-medium text-foreground">{state.workerEntries.length}</span>
         </p>
       </div>
 
@@ -83,13 +86,13 @@ export function StepWorkerDetails() {
         className="self-start gap-2"
       >
         <CopyCheck className="h-4 w-4" />
-        Aplicar a todos
+        {t("applyAll")}
       </Button>
 
       {showApplyAll && (
         <div className="rounded-xl border bg-primary/5 p-4 space-y-3">
           <div className="space-y-1.5">
-            <Label className="text-sm">Horas para todos</Label>
+            <Label className="text-sm">{t("hoursForAll")}</Label>
             <div className="flex items-center gap-3">
               <Button
                 variant="outline"
@@ -117,7 +120,7 @@ export function StepWorkerDetails() {
             </div>
           </div>
           <div className="space-y-1.5">
-            <Label className="text-sm">Tipo de Horas para todos</Label>
+            <Label className="text-sm">{t("tipoForAll")}</Label>
             <Select
               value={bulkTipo}
               onValueChange={(v) => setBulkTipo(v as TipoDeHoras)}
@@ -128,14 +131,14 @@ export function StepWorkerDetails() {
               <SelectContent>
                 {TIPO_DE_HORAS_OPTIONS.map((opt) => (
                   <SelectItem key={opt} value={opt}>
-                    {opt}
+                    {tTipo(opt)}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <Button onClick={applyToAll} size="sm" className="w-full">
-            Aplicar
+            {t("apply")}
           </Button>
         </div>
       )}

@@ -15,46 +15,47 @@ import {
   HeartPulse,
   Wrench,
 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 const TIMESHEET_MODULES = [
   {
-    title: "Construction",
-    description: "Horas de trabajo en obra y construccion",
+    titleKey: "timesheet.modules.construction.title",
+    descKey: "timesheet.modules.construction.description",
     href: "/timesheet/construction",
     icon: HardHat,
     color: "text-orange-500",
   },
   {
-    title: "Digital Twin",
-    description: "Horas de modelado y gemelo digital",
+    titleKey: "timesheet.modules.digitalTwin.title",
+    descKey: "timesheet.modules.digitalTwin.description",
     href: "/timesheet/digital-twin",
     icon: Box,
     color: "text-purple-500",
   },
   {
-    title: "Administration",
-    description: "Horas administrativas y de oficina",
+    titleKey: "timesheet.modules.administration.title",
+    descKey: "timesheet.modules.administration.description",
     href: "/timesheet/administration",
     icon: ClipboardList,
     color: "text-blue-500",
   },
   {
-    title: "SCM",
-    description: "Supply Chain Management - cadena de suministro",
+    titleKey: "timesheet.modules.scm.title",
+    descKey: "timesheet.modules.scm.description",
     href: "/timesheet/scm",
     icon: Truck,
     color: "text-green-500",
   },
   {
-    title: "Health, Safety & Wellbeing",
-    description: "Seguridad, salud y bienestar en obra",
+    titleKey: "timesheet.modules.hsw.title",
+    descKey: "timesheet.modules.hsw.description",
     href: "/timesheet/hsw",
     icon: HeartPulse,
     color: "text-red-500",
   },
   {
-    title: "Services",
-    description: "Servicios generales y soporte",
+    titleKey: "timesheet.modules.services.title",
+    descKey: "timesheet.modules.services.description",
     href: "/timesheet/services",
     icon: Wrench,
     color: "text-cyan-500",
@@ -62,12 +63,14 @@ const TIMESHEET_MODULES = [
 ]
 
 export default function TimesheetPage() {
+  const t = useTranslations()
+
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Timesheet</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t("timesheet.title")}</h1>
         <p className="text-muted-foreground">
-          Selecciona el modulo para registrar horas trabajadas
+          {t("timesheet.subtitle")}
         </p>
       </div>
 
@@ -78,8 +81,8 @@ export default function TimesheetPage() {
               <CardHeader className="flex flex-row items-center gap-4">
                 <mod.icon className={`h-8 w-8 ${mod.color} shrink-0`} />
                 <div>
-                  <CardTitle className="text-lg">{mod.title}</CardTitle>
-                  <CardDescription>{mod.description}</CardDescription>
+                  <CardTitle className="text-lg">{t(mod.titleKey)}</CardTitle>
+                  <CardDescription>{t(mod.descKey)}</CardDescription>
                 </div>
               </CardHeader>
             </Card>

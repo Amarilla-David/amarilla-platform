@@ -3,17 +3,19 @@
 import { ChevronLeft, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useWizard } from "./wizard-provider"
+import { useTranslations } from "next-intl"
 
-const STEP_LABELS: Record<number, string> = {
-  1: "Seleccionar Obra",
-  2: "Seleccionar Tarea",
-  3: "Seleccionar Obreros",
-  4: "Configurar Horas",
+const STEP_KEYS: Record<number, string> = {
+  1: "timesheet.wizard.steps.project",
+  2: "timesheet.wizard.steps.plan",
+  3: "timesheet.wizard.steps.workers",
+  4: "timesheet.wizard.steps.configure",
 }
 
 export function WizardHeader() {
   const { state, dispatch, close } = useWizard()
   const { step } = state
+  const t = useTranslations()
 
   function handleBack() {
     if (step > 1) {
@@ -34,7 +36,7 @@ export function WizardHeader() {
           <ChevronLeft className="h-5 w-5" />
         </Button>
         <span className="text-sm font-medium text-muted-foreground">
-          Paso {step} de 4
+          {t("timesheet.wizard.stepOf", { step })}
         </span>
         <Button
           variant="ghost"
@@ -45,7 +47,7 @@ export function WizardHeader() {
           <X className="h-5 w-5" />
         </Button>
       </div>
-      <h2 className="text-lg font-semibold">{STEP_LABELS[step]}</h2>
+      <h2 className="text-lg font-semibold">{t(STEP_KEYS[step])}</h2>
       {/* Progress bar */}
       <div className="mt-2 h-1 w-full rounded-full bg-muted">
         <div

@@ -14,3 +14,94 @@
  GET /login 200 in 3.1s (compile: 2.8s, proxy.ts: 6ms, render: 308ms)
  GET / 200 in 1692ms (compile: 1142ms, proxy.ts: 255ms, render: 295ms)
  GET / 200 in 801ms (compile: 8ms, proxy.ts: 553ms, render: 240ms)
+✓ Compiled in 836ms
+✓ Compiled in 218ms
+✓ Compiled in 1213ms
+⨯ The requested resource isn't a valid image for /logo-dark.avif received null
+ GET / 200 in 1579ms (compile: 270ms, proxy.ts: 941ms, render: 368ms)
+ GET / 200 in 1713ms (compile: 8ms, proxy.ts: 1163ms, render: 542ms)
+⨯ The requested resource isn't a valid image for /logo-dark.avif received null
+✓ Compiled in 152ms
+✓ Compiled in 97ms
+⨯ The requested resource isn't a valid image for /logo-dark.avif received null
+ GET / 200 in 916ms (compile: 191ms, proxy.ts: 247ms, render: 479ms)
+⨯ The requested resource isn't a valid image for /logo-dark.avif received null
+✓ Compiled in 300ms
+ GET / 200 in 443ms (compile: 9ms, proxy.ts: 366ms, render: 67ms)
+ GET / 200 in 844ms (compile: 10ms, proxy.ts: 529ms, render: 305ms)
+⨯ The requested resource isn't a valid image for /logo-dark.avif received null
+⨯ The requested resource isn't a valid image for /logo-dark.avif received null
+✓ Compiled in 90ms
+ GET / 200 in 1168ms (compile: 223ms, proxy.ts: 566ms, render: 379ms)
+ GET / 200 in 602ms (compile: 19ms, proxy.ts: 466ms, render: 117ms)
+ GET / 200 in 1466ms (compile: 17ms, proxy.ts: 860ms, render: 588ms)
+ GET /login 200 in 486ms (compile: 181ms, proxy.ts: 7ms, render: 298ms)
+ GET / 200 in 584ms (compile: 7ms, proxy.ts: 324ms, render: 253ms)
+ GET / 200 in 557ms (compile: 6ms, proxy.ts: 251ms, render: 300ms)
+ GET / 200 in 536ms (compile: 6ms, proxy.ts: 223ms, render: 307ms)
+✓ Compiled in 1041ms
+ GET / 200 in 1010ms (compile: 311ms, proxy.ts: 579ms, render: 121ms)
+ GET / 200 in 367ms (compile: 7ms, proxy.ts: 303ms, render: 56ms)
+ GET / 200 in 263ms (compile: 5ms, proxy.ts: 201ms, render: 57ms)
+ GET / 200 in 255ms (compile: 4ms, proxy.ts: 198ms, render: 54ms)
+ GET / 200 in 258ms (compile: 13ms, proxy.ts: 197ms, render: 48ms)
+ GET / 200 in 263ms (compile: 7ms, proxy.ts: 196ms, render: 60ms)
+ GET / 200 in 259ms (compile: 9ms, proxy.ts: 198ms, render: 52ms)
+ GET / 200 in 270ms (compile: 5ms, proxy.ts: 206ms, render: 59ms)
+ GET / 200 in 252ms (compile: 5ms, proxy.ts: 194ms, render: 53ms)
+ GET / 200 in 255ms (compile: 4ms, proxy.ts: 195ms, render: 57ms)
+ GET / 200 in 261ms (compile: 9ms, proxy.ts: 195ms, render: 57ms)
+ GET / 200 in 277ms (compile: 5ms, proxy.ts: 227ms, render: 45ms)
+ GET / 200 in 304ms (compile: 6ms, proxy.ts: 250ms, render: 49ms)
+ GET / 200 in 323ms (compile: 9ms, proxy.ts: 265ms, render: 50ms)
+ GET / 200 in 265ms (compile: 6ms, proxy.ts: 209ms, render: 51ms)
+ GET / 200 in 291ms (compile: 6ms, proxy.ts: 228ms, render: 58ms)
+ GET / 200 in 268ms (compile: 5ms, proxy.ts: 204ms, render: 58ms)
+ GET / 200 in 348ms (compile: 4ms, proxy.ts: 305ms, render: 39ms)
+ GET / 200 in 699ms (compile: 4ms, proxy.ts: 224ms, render: 471ms)
+ GET /login 200 in 444ms (compile: 173ms, proxy.ts: 9ms, render: 262ms)
+ GET /login 200 in 77ms (compile: 6ms, proxy.ts: 6ms, render: 65ms)
+✓ Compiled in 403ms
+ GET /login 200 in 221ms (compile: 164ms, proxy.ts: 8ms, render: 49ms)
+ GET /login 200 in 281ms (compile: 6ms, proxy.ts: 6ms, render: 269ms)
+✓ Compiled in 134ms
+✓ Compiled in 142ms
+ GET /login 200 in 255ms (compile: 161ms, proxy.ts: 7ms, render: 86ms)
+ GET /login 200 in 39ms (compile: 4ms, proxy.ts: 6ms, render: 29ms)
+ GET /login 200 in 249ms (compile: 6ms, proxy.ts: 7ms, render: 236ms)
+ GET /login 200 in 88ms (compile: 8ms, proxy.ts: 9ms, render: 72ms)
+ GET /login 200 in 197ms (compile: 10ms, proxy.ts: 7ms, render: 180ms)
+ GET / 200 in 764ms (compile: 212ms, proxy.ts: 267ms, render: 286ms)
+ GET / 200 in 473ms (compile: 6ms, proxy.ts: 226ms, render: 240ms)
+ GET / 200 in 751ms (compile: 5ms, proxy.ts: 300ms, render: 447ms)
+✓ Compiled in 260ms
+ GET / 200 in 2.7s (compile: 376ms, proxy.ts: 1518ms, render: 767ms)
+ GET / 200 in 681ms (compile: 14ms, proxy.ts: 331ms, render: 336ms)
+ GET /login 200 in 502ms (compile: 212ms, proxy.ts: 8ms, render: 282ms)
+ GET /login 200 in 267ms (compile: 166ms, proxy.ts: 7ms, render: 94ms)
+ GET /login 200 in 43ms (compile: 5ms, proxy.ts: 6ms, render: 32ms)
+ GET /login 200 in 251ms (compile: 163ms, proxy.ts: 6ms, render: 82ms)
+ GET /login 200 in 35ms (compile: 4ms, proxy.ts: 5ms, render: 27ms)
+ GET /login 200 in 271ms (compile: 156ms, proxy.ts: 5ms, render: 110ms)
+ GET /login 200 in 51ms (compile: 7ms, proxy.ts: 7ms, render: 38ms)
+ GET /login 200 in 272ms (compile: 164ms, proxy.ts: 7ms, render: 102ms)
+ GET /login 200 in 46ms (compile: 5ms, proxy.ts: 7ms, render: 34ms)
+✓ Compiled in 493ms
+✓ Compiled in 80ms
+✓ Compiled in 138ms
+✓ Compiled in 79ms
+ GET / 200 in 734ms (compile: 202ms, proxy.ts: 250ms, render: 282ms)
+ GET / 200 in 493ms (compile: 9ms, proxy.ts: 244ms, render: 240ms)
+✓ Compiled in 327ms
+✓ Compiled in 167ms
+ GET / 200 in 1106ms (compile: 230ms, proxy.ts: 786ms, render: 90ms)
+ GET / 200 in 254ms (compile: 7ms, proxy.ts: 205ms, render: 42ms)
+✓ Compiled in 85ms
+✓ Compiled in 88ms
+✓ Compiled in 78ms
+ GET / 200 in 574ms (compile: 216ms, proxy.ts: 255ms, render: 102ms)
+✓ Compiled in 114ms
+ GET / 200 in 1213ms (compile: 9ms, proxy.ts: 626ms, render: 577ms)
+ GET /login 200 in 465ms (compile: 202ms, proxy.ts: 5ms, render: 258ms)
+ GET /login 200 in 96ms (compile: 9ms, proxy.ts: 10ms, render: 77ms)
+[?25h

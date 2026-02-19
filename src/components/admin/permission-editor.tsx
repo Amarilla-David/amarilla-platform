@@ -22,6 +22,7 @@ import { Trash2, Plus } from "lucide-react"
 import { toast } from "sonner"
 import type { UserProfile } from "@/types/auth"
 import type { UserPermission, Resource, AccessLevel } from "@/types/permissions"
+import { useTranslations } from "next-intl"
 
 const RESOURCES: Resource[] = [
   "timesheet",
@@ -54,6 +55,11 @@ export function PermissionEditor({
   const supabase = useMemo(() => createClient(), [])
   const [newResource, setNewResource] = useState<Resource>("timesheet")
   const [newLevel, setNewLevel] = useState<AccessLevel>("read")
+  const t = useTranslations("admin.permissions")
+  const tCommon = useTranslations("common")
+  const tResources = useTranslations("resources")
+  const tAccess = useTranslations("accessLevels")
+  const tRoles = useTranslations("roles")
 
   async function addPermission() {
     if (!selectedUserId || !currentUser) return
@@ -70,9 +76,9 @@ export function PermissionEditor({
     )
 
     if (error) {
-      toast.error("Error al asignar permiso")
+      toast.error(t("assignError"))
     } else {
-      toast.success("Permiso asignado")
+      toast.success(t("assignSuccess"))
       onRefresh()
     }
   }
@@ -84,16 +90,16 @@ export function PermissionEditor({
       .eq("id", permissionId)
 
     if (error) {
-      toast.error("Error al revocar permiso")
+      toast.error(t("revokeError"))
     } else {
-      toast.success("Permiso revocado")
+      toast.success(t("revokeSuccess"))
       onRefresh()
     }
   }
 
   if (loading) {
     return (
-      <div className="text-center py-8 text-muted-foreground">Cargando...</div>
+      <div className="text-center py-8 text-muted-foreground">{tCommon("loading")}</div>
     )
   }
 
@@ -104,12 +110,12 @@ export function PermissionEditor({
         onValueChange={(val) => onSelectUser(val || null)}
       >
         <SelectTrigger className="w-full sm:w-[300px]">
-          <SelectValue placeholder="Seleccionar usuario" />
+          <SelectValue placeholder={t("selectUser")} />
         </SelectTrigger>
         <SelectContent>
           {users.map((u) => (
             <SelectItem key={u.id} value={u.id}>
-              {u.full_name} ({u.role})
+              {u.full_name} ({tRoles(u.role)})
             </SelectItem>
           ))}
         </SelectContent>
@@ -118,12 +124,12 @@ export function PermissionEditor({
       {selectedUserId && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Permisos asignados</CardTitle>
+            <CardTitle className="text-lg">{t("assigned")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {permissions.length === 0 && (
               <p className="text-sm text-muted-foreground">
-                Sin permisos explicitos asignados
+                {t("noExplicit")}
               </p>
             )}
             {permissions.map((p) => (
@@ -132,11 +138,11 @@ export function PermissionEditor({
                 className="flex items-center justify-between gap-2"
               >
                 <div className="flex items-center gap-2 flex-wrap">
-                  <Badge variant="outline">{p.resource}</Badge>
-                  <Badge>{p.access_level}</Badge>
+                  <Badge variant="outline">{tResources(p.resource)}</Badge>
+                  <Badge>{tAccess(p.access_level)}</Badge>
                   {p.project_id && (
                     <span className="text-xs text-muted-foreground">
-                      Proyecto: {p.project_id}
+                      {t("project")} {p.project_id}
                     </span>
                   )}
                 </div>
@@ -161,7 +167,7 @@ export function PermissionEditor({
                 <SelectContent>
                   {RESOURCES.map((r) => (
                     <SelectItem key={r} value={r}>
-                      {r}
+                      {tResources(r)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -177,7 +183,7 @@ export function PermissionEditor({
                 <SelectContent>
                   {ACCESS_LEVELS.map((l) => (
                     <SelectItem key={l} value={l}>
-                      {l}
+                      {tAccess(l)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -185,7 +191,7 @@ export function PermissionEditor({
 
               <Button onClick={addPermission} className="min-w-[44px]">
                 <Plus className="h-4 w-4 mr-1" />
-                Agregar
+                {tCommon("add")}
               </Button>
             </div>
           </CardContent>

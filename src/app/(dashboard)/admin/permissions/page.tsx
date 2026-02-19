@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client"
 import { PermissionEditor } from "@/components/admin/permission-editor"
 import type { UserProfile } from "@/types/auth"
 import type { UserPermission } from "@/types/permissions"
+import { useTranslations } from "next-intl"
 
 export default function AdminPermissionsPage() {
   const [users, setUsers] = useState<UserProfile[]>([])
@@ -12,6 +13,7 @@ export default function AdminPermissionsPage() {
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const supabase = useMemo(() => createClient(), [])
+  const t = useTranslations("admin.permissions")
 
   const fetchData = useCallback(async () => {
     setLoading(true)
@@ -35,9 +37,9 @@ export default function AdminPermissionsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Permisos</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t("title")}</h1>
         <p className="text-muted-foreground">
-          Asignar permisos por recurso y proyecto
+          {t("subtitle")}
         </p>
       </div>
 

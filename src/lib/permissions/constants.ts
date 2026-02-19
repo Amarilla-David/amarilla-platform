@@ -40,18 +40,18 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<
 }
 
 export interface NavItem {
-  label: string
+  labelKey: string
   href: string
   icon: string
   resource: Resource
   requiredLevel: AccessLevel
   mobileNav: boolean
-  section?: string
+  sectionKey?: string
 }
 
 export const NAV_ITEMS: NavItem[] = [
   {
-    label: "Dashboard",
+    labelKey: "nav.dashboard",
     href: "/",
     icon: "LayoutDashboard",
     resource: "projects",
@@ -59,7 +59,7 @@ export const NAV_ITEMS: NavItem[] = [
     mobileNav: true,
   },
   {
-    label: "Timesheet",
+    labelKey: "nav.timesheet",
     href: "/timesheet",
     icon: "Clock",
     resource: "timesheet",
@@ -67,7 +67,7 @@ export const NAV_ITEMS: NavItem[] = [
     mobileNav: true,
   },
   {
-    label: "Proyectos",
+    labelKey: "nav.projects",
     href: "/projects",
     icon: "FolderKanban",
     resource: "projects",
@@ -75,7 +75,7 @@ export const NAV_ITEMS: NavItem[] = [
     mobileNav: true,
   },
   {
-    label: "Documentos",
+    labelKey: "nav.documents",
     href: "/documents",
     icon: "FileText",
     resource: "documents",
@@ -83,7 +83,7 @@ export const NAV_ITEMS: NavItem[] = [
     mobileNav: false,
   },
   {
-    label: "Presupuestos",
+    labelKey: "nav.budgets",
     href: "/budgets",
     icon: "DollarSign",
     resource: "budgets",
@@ -91,7 +91,7 @@ export const NAV_ITEMS: NavItem[] = [
     mobileNav: false,
   },
   {
-    label: "Cronograma",
+    labelKey: "nav.schedules",
     href: "/schedules",
     icon: "CalendarDays",
     resource: "schedules",
@@ -99,7 +99,7 @@ export const NAV_ITEMS: NavItem[] = [
     mobileNav: false,
   },
   {
-    label: "Admin",
+    labelKey: "nav.admin",
     href: "/admin/users",
     icon: "Shield",
     resource: "admin",
@@ -110,10 +110,10 @@ export const NAV_ITEMS: NavItem[] = [
 
 // Navigation items for project-scoped views
 // href is relative — prepend /projects/[projectId] at render time
-// section: used as header label; "---": renders a divider line
+// sectionKey: translation key for header label; "---": renders a divider line
 export const PROJECT_NAV_ITEMS: NavItem[] = [
   {
-    label: "Dashboard",
+    labelKey: "projectNav.dashboard",
     href: "",
     icon: "LayoutDashboard",
     resource: "projects",
@@ -121,102 +121,102 @@ export const PROJECT_NAV_ITEMS: NavItem[] = [
     mobileNav: true,
   },
   {
-    label: "Space View",
+    labelKey: "projectNav.spaceView",
     href: "/space-view",
     icon: "Box",
     resource: "projects",
     requiredLevel: "read",
     mobileNav: false,
-    section: "PROJECT DEFINITIONS",
+    sectionKey: "projectNav.sections.projectDefinitions",
   },
   {
-    label: "Product View",
+    labelKey: "projectNav.productView",
     href: "/product-view",
     icon: "Package",
     resource: "projects",
     requiredLevel: "read",
     mobileNav: false,
-    section: "PROJECT DEFINITIONS",
+    sectionKey: "projectNav.sections.projectDefinitions",
   },
   {
-    label: "Finish Schedule",
+    labelKey: "projectNav.finishSchedule",
     href: "/finish-schedule",
     icon: "Palette",
     resource: "projects",
     requiredLevel: "read",
     mobileNav: false,
-    section: "PROJECT DEFINITIONS",
+    sectionKey: "projectNav.sections.projectDefinitions",
   },
   {
-    label: "Takeoff",
+    labelKey: "projectNav.takeoff",
     href: "/takeoff",
     icon: "Ruler",
     resource: "projects",
     requiredLevel: "read",
     mobileNav: false,
-    section: "---",
+    sectionKey: "---",
   },
   {
-    label: "Project Team",
+    labelKey: "projectNav.team",
     href: "/team",
     icon: "Users",
     resource: "projects",
     requiredLevel: "read",
     mobileNav: true,
-    section: "---",
+    sectionKey: "---",
   },
   {
-    label: "Permits & Inspections",
+    labelKey: "projectNav.permits",
     href: "/permits",
     icon: "ClipboardCheck",
     resource: "projects",
     requiredLevel: "read",
     mobileNav: false,
-    section: "---",
+    sectionKey: "---",
   },
   {
-    label: "Budget",
+    labelKey: "projectNav.budget",
     href: "/budget",
     icon: "DollarSign",
     resource: "budgets",
     requiredLevel: "read",
     mobileNav: true,
-    section: "---",
+    sectionKey: "---",
   },
   {
-    label: "Schedule",
+    labelKey: "projectNav.schedule",
     href: "/schedule",
     icon: "CalendarDays",
     resource: "schedules",
     requiredLevel: "read",
     mobileNav: true,
-    section: "---",
+    sectionKey: "---",
   },
   {
-    label: "SCM",
+    labelKey: "projectNav.scm",
     href: "/scm",
     icon: "Truck",
     resource: "projects",
     requiredLevel: "read",
     mobileNav: false,
-    section: "---",
+    sectionKey: "---",
   },
   {
-    label: "H,S&WB",
+    labelKey: "projectNav.healthSafety",
     href: "/health-safety",
     icon: "HardHat",
     resource: "projects",
     requiredLevel: "read",
     mobileNav: false,
-    section: "---",
+    sectionKey: "---",
   },
   {
-    label: "Live Camera",
+    labelKey: "projectNav.liveCamera",
     href: "/live-camera",
     icon: "Camera",
     resource: "projects",
     requiredLevel: "read",
     mobileNav: true,
-    section: "---",
+    sectionKey: "---",
   },
 ]

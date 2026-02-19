@@ -18,6 +18,7 @@ import {
   type TipoDeHoras,
   type DetailOption,
 } from "@/types/construction-timesheet"
+import { useTranslations } from "next-intl"
 
 interface WorkerConfigCardProps {
   workerId: string
@@ -41,6 +42,8 @@ export function WorkerConfigCard({
   details,
 }: WorkerConfigCardProps) {
   const { dispatch } = useWizard()
+  const t = useTranslations("timesheet.workerCard")
+  const tTipo = useTranslations("tipoDeHoras")
 
   function updateField(field: string, value: string | number) {
     dispatch({
@@ -64,13 +67,13 @@ export function WorkerConfigCard({
       <div className="flex items-center justify-between">
         <span className="font-semibold">{workerName}</span>
         <Badge variant="outline" className="text-xs">
-          Max {maxHours}h
+          {t("maxHours", { hours: maxHours })}
         </Badge>
       </div>
 
       {/* Hours stepper */}
       <div className="space-y-1.5">
-        <Label className="text-sm text-muted-foreground">Horas</Label>
+        <Label className="text-sm text-muted-foreground">{t("hours")}</Label>
         <div className="flex items-center gap-3">
           <Button
             variant="outline"
@@ -100,14 +103,14 @@ export function WorkerConfigCard({
       {details.length > 0 && (
         <div className="space-y-1.5">
           <Label className="text-sm text-muted-foreground">
-            Detail (opcional)
+            {t("detail")}
           </Label>
           <Select
             value={detailId || undefined}
             onValueChange={(v) => updateField("detailId", v)}
           >
             <SelectTrigger className="h-11 w-full">
-              <SelectValue placeholder="Seleccionar detail..." />
+              <SelectValue placeholder={t("selectDetail")} />
             </SelectTrigger>
             <SelectContent>
               {details.map((d) => (
@@ -122,7 +125,7 @@ export function WorkerConfigCard({
 
       {/* Tipo de Horas */}
       <div className="space-y-1.5">
-        <Label className="text-sm text-muted-foreground">Tipo de Horas</Label>
+        <Label className="text-sm text-muted-foreground">{t("tipoDeHoras")}</Label>
         <Select
           value={tipoDeHoras}
           onValueChange={(v) => updateField("tipoDeHoras", v)}
@@ -133,7 +136,7 @@ export function WorkerConfigCard({
           <SelectContent>
             {TIPO_DE_HORAS_OPTIONS.map((opt) => (
               <SelectItem key={opt} value={opt}>
-                {opt}
+                {tTipo(opt)}
               </SelectItem>
             ))}
           </SelectContent>
@@ -143,12 +146,12 @@ export function WorkerConfigCard({
       {/* Comments */}
       <div className="space-y-1.5">
         <Label className="text-sm text-muted-foreground">
-          Comentarios (opcional)
+          {t("comments")}
         </Label>
         <Input
           value={comments}
           onChange={(e) => updateField("comments", e.target.value)}
-          placeholder="Escribir comentario..."
+          placeholder={t("writePlaceholder")}
           className="h-11"
         />
       </div>

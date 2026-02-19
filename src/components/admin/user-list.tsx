@@ -14,12 +14,15 @@ import {
 import type { UserProfile } from "@/types/auth"
 import type { Role } from "@/types/permissions"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 interface UserListProps {
   users: UserProfile[]
   loading: boolean
   onRefresh: () => void
 }
+
+const ROLES: Role[] = ["admin", "manager", "employee", "client", "foreman"]
 
 const ROLE_COLORS: Record<Role, string> = {
   admin: "bg-red-50 text-red-700 border-red-200",
@@ -31,6 +34,8 @@ const ROLE_COLORS: Record<Role, string> = {
 
 export function UserList({ users, loading, onRefresh }: UserListProps) {
   const supabase = useMemo(() => createClient(), [])
+  const t = useTranslations("admin.users")
+  const tRoles = useTranslations("roles")
 
   async function updateRole(userId: string, newRole: Role) {
     const { error } = await supabase
@@ -39,9 +44,9 @@ export function UserList({ users, loading, onRefresh }: UserListProps) {
       .eq("id", userId)
 
     if (error) {
-      toast.error("Error al actualizar rol")
+      toast.error(t("roleError"))
     } else {
-      toast.success("Rol actualizado")
+      toast.success(t("roleUpdated"))
       onRefresh()
     }
   }
@@ -49,7 +54,7 @@ export function UserList({ users, loading, onRefresh }: UserListProps) {
   if (loading) {
     return (
       <div className="text-center py-8 text-muted-foreground">
-        Cargando usuarios...
+        {t("loading")}
       </div>
     )
   }
@@ -57,7 +62,7 @@ export function UserList({ users, loading, onRefresh }: UserListProps) {
   if (users.length === 0) {
     return (
       <div className="text-center py-8 text-muted-foreground">
-        No hay usuarios registrados
+        {t("noUsers")}
       </div>
     )
   }
@@ -69,7 +74,7 @@ export function UserList({ users, loading, onRefresh }: UserListProps) {
           <CardContent className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4">
             <div className="flex-1 space-y-1">
               <p className="font-medium">{user.full_name}</p>
-              <Badge className={ROLE_COLORS[user.role]}>{user.role}</Badge>
+              <Badge className={ROLE_COLORS[user.role]}>{tRoles(user.role)}</Badge>
             </div>
             <Select
               defaultValue={user.role}
@@ -79,11 +84,11 @@ export function UserList({ users, loading, onRefresh }: UserListProps) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="admin">Admin</SelectItem>
-                <SelectItem value="manager">Manager</SelectItem>
-                <SelectItem value="employee">Employee</SelectItem>
-                <SelectItem value="client">Client</SelectItem>
-                <SelectItem value="foreman">Foreman</SelectItem>
+                {ROLES.map((role) => (
+                  <SelectItem key={role} value={role}>
+                    {tRoles(role)}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </CardContent>

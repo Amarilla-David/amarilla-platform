@@ -9,11 +9,13 @@ import {
 } from "@/hooks/use-construction-timesheet"
 import { useWizard } from "../wizard-provider"
 import { cn } from "@/lib/utils"
+import { useTranslations } from "next-intl"
 
 export function StepProjectPlan() {
   const { state, dispatch } = useWizard()
   const { data: projectsData } = useConstructionProjects()
   const [search, setSearch] = useState("")
+  const t = useTranslations("timesheet.wizard")
 
   // Get the plan IDs for the selected project from the projectPlanMap
   const planIds: string[] =
@@ -43,13 +45,13 @@ export function StepProjectPlan() {
   return (
     <div className="flex flex-col gap-3 p-4">
       <p className="text-sm text-muted-foreground">
-        Obra: <span className="font-medium text-foreground">{state.selectedProjectName}</span>
+        {t("projectLabel")} <span className="font-medium text-foreground">{state.selectedProjectName}</span>
       </p>
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
-          placeholder="Buscar tarea..."
+          placeholder={t("searchPlan")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="pl-9 h-11"
@@ -80,7 +82,7 @@ export function StepProjectPlan() {
 
         {plans.length === 0 && (
           <p className="text-center text-muted-foreground py-8">
-            No se encontraron tareas para esta obra
+            {t("noPlans")}
           </p>
         )}
       </div>

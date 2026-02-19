@@ -21,31 +21,29 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import type { Resource } from "@/types/permissions"
-import {
-  PROJECT_STATUS_LABELS,
-  PROJECT_STATUS_COLORS,
-} from "@/types/project"
+import { PROJECT_STATUS_COLORS } from "@/types/project"
 import type { ProjectStatus } from "@/types/project"
+import { useTranslations } from "next-intl"
 
-interface DashboardCard {
-  title: string
-  description: string
+interface AdminCardDef {
+  titleKey: string
+  descKey: string
   href: string
   icon: React.ReactNode
   resource: Resource
 }
 
-const ADMIN_CARDS: DashboardCard[] = [
+const ADMIN_CARDS: AdminCardDef[] = [
   {
-    title: "Timesheet",
-    description: "Registrar y revisar horas trabajadas",
+    titleKey: "dashboard.adminCards.timesheetTitle",
+    descKey: "dashboard.adminCards.timesheetDesc",
     href: "/timesheet",
     icon: <Clock className="h-8 w-8 text-blue-500" />,
     resource: "timesheet",
   },
   {
-    title: "Administracion",
-    description: "Gestion de usuarios y permisos",
+    titleKey: "dashboard.adminCards.adminTitle",
+    descKey: "dashboard.adminCards.adminDesc",
     href: "/admin/users",
     icon: <Shield className="h-8 w-8 text-red-500" />,
     resource: "admin",
@@ -64,6 +62,7 @@ export default function DashboardPage() {
   const { user, profile, loading: authLoading } = useAuthContext()
   const supabase = useMemo(() => createClient(), [])
   const [projects, setProjects] = useState<ProjectRow[]>([])
+  const t = useTranslations()
 
   useEffect(() => {
     if (authLoading || !user) return
@@ -142,7 +141,7 @@ export default function DashboardPage() {
   if (authLoading) {
     return (
       <div className="text-center py-8 text-muted-foreground">
-        Cargando...
+        {t("common.loading")}
       </div>
     )
   }
@@ -156,20 +155,22 @@ export default function DashboardPage() {
       {/* Welcome */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight">
-          Bienvenido{profile ? `, ${profile.full_name}` : ""}
+          {profile
+            ? t("dashboard.welcomeName", { name: profile.full_name })
+            : t("dashboard.welcome")}
         </h1>
         <p className="text-muted-foreground">
-          Panel principal de la plataforma
+          {t("dashboard.subtitle")}
         </p>
       </div>
 
       {/* Projects grid */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Proyectos</h2>
+          <h2 className="text-lg font-semibold">{t("dashboard.projects")}</h2>
           {profile?.role === "admin" && (
             <span className="text-sm text-muted-foreground">
-              {projects.length} proyecto{projects.length !== 1 ? "s" : ""}
+              {t("dashboard.projectCount", { count: projects.length })}
             </span>
           )}
         </div>
@@ -177,7 +178,7 @@ export default function DashboardPage() {
         {projects.length === 0 ? (
           <Card>
             <CardContent className="py-8 text-center text-muted-foreground">
-              No hay proyectos asignados
+              {t("dashboard.noProjects")}
             </CardContent>
           </Card>
         ) : (
@@ -210,9 +211,9 @@ export default function DashboardPage() {
                         ] ?? "bg-gray-50 text-gray-700 border-gray-200"
                       }
                     >
-                      {PROJECT_STATUS_LABELS[
-                        project.status as ProjectStatus
-                      ] ?? project.status}
+                      {t.has(`projects.status.${project.status}` as Parameters<typeof t.has>[0])
+                        ? t(`projects.status.${project.status}` as Parameters<typeof t>[0])
+                        : project.status}
                     </Badge>
                   </CardContent>
                 </Card>
@@ -225,7 +226,7 @@ export default function DashboardPage() {
       {/* Admin quick links */}
       {profile?.role === "admin" && (
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold">Administracion</h2>
+          <h2 className="text-lg font-semibold">{t("dashboard.admin")}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {ADMIN_CARDS.map((card) => (
               <PermissionGate key={card.href} resource={card.resource}>
@@ -235,10 +236,10 @@ export default function DashboardPage() {
                       {card.icon}
                       <div>
                         <CardTitle className="text-lg">
-                          {card.title}
+                          {t(card.titleKey)}
                         </CardTitle>
                         <CardDescription>
-                          {card.description}
+                          {t(card.descKey)}
                         </CardDescription>
                       </div>
                     </CardHeader>

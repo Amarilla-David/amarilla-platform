@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { useWizard } from "./wizard-provider"
+import { useTranslations } from "next-intl"
 
 interface WizardFooterProps {
   onSubmit: () => void
@@ -11,6 +12,7 @@ interface WizardFooterProps {
 export function WizardFooter({ onSubmit, isSubmitting }: WizardFooterProps) {
   const { state, dispatch } = useWizard()
   const { step, selectedWorkerIds, workerEntries } = state
+  const t = useTranslations("timesheet.wizard")
 
   function handleBack() {
     if (step > 1) {
@@ -30,14 +32,14 @@ export function WizardFooter({ onSubmit, isSubmitting }: WizardFooterProps) {
             onClick={handleBack}
             className="flex-1 h-12 text-base"
           >
-            Atras
+            {t("back")}
           </Button>
           <Button
             onClick={() => dispatch({ type: "SET_STEP", step: 4 })}
             disabled={selectedWorkerIds.length === 0}
             className="flex-1 h-12 text-base"
           >
-            Siguiente ({selectedWorkerIds.length})
+            {t("nextCount", { count: selectedWorkerIds.length })}
           </Button>
         </div>
       </div>
@@ -55,7 +57,7 @@ export function WizardFooter({ onSubmit, isSubmitting }: WizardFooterProps) {
           onClick={handleBack}
           className="h-12 px-6 text-base"
         >
-          Atras
+          {t("back")}
         </Button>
         <Button
           onClick={onSubmit}
@@ -63,8 +65,8 @@ export function WizardFooter({ onSubmit, isSubmitting }: WizardFooterProps) {
           className="flex-1 h-12 text-base"
         >
           {isSubmitting
-            ? "Registrando..."
-            : `Registrar ${totalHours}h — ${workerEntries.length} trabajador${workerEntries.length !== 1 ? "es" : ""}`}
+            ? t("submitting")
+            : t("submitButton", { hours: totalHours, count: workerEntries.length })}
         </Button>
       </div>
     </div>

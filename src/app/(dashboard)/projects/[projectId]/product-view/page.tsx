@@ -1,8 +1,13 @@
-export default function ProductViewPage() {
+import { getTranslations } from "next-intl/server"
+
+export default async function ProductViewPage() {
+  const t = await getTranslations("projectPages")
+  const tCommon = await getTranslations("common")
+
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">Product View</h1>
-      <p className="text-muted-foreground">Proximamente...</p>
+      <h1 className="text-2xl font-bold">{t("productView")}</h1>
+      <p className="text-muted-foreground">{tCommon("comingSoon")}</p>
     </div>
   )
 }

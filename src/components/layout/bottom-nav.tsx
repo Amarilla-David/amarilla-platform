@@ -14,6 +14,7 @@ import {
 import { cn } from "@/lib/utils"
 import { usePermissions } from "@/hooks/use-permissions"
 import { NAV_ITEMS } from "@/lib/permissions/constants"
+import { useTranslations } from "next-intl"
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard,
@@ -28,6 +29,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
 export function BottomNav() {
   const pathname = usePathname()
   const { hasPermission } = usePermissions()
+  const t = useTranslations()
 
   const mobileItems = NAV_ITEMS.filter(
     (item) => item.mobileNav && hasPermission(item.resource, item.requiredLevel)
@@ -53,7 +55,7 @@ export function BottomNav() {
               )}
             >
               {Icon && <Icon className="h-5 w-5" />}
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <span className="text-[10px] font-medium">{t(item.labelKey)}</span>
             </Link>
           )
         })}

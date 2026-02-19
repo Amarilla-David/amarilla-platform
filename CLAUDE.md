@@ -13,7 +13,7 @@ No test runner is configured yet.
 
 ## Tech Stack
 
-Next.js 16 (App Router), React 19, TypeScript 5, Tailwind CSS v4, shadcn/ui, Supabase (auth + DB), Airtable (data provider), TanStack React Query, React Hook Form + Zod, Sonner (toasts). All UI text is in Spanish.
+Next.js 16 (App Router), React 19, TypeScript 5, Tailwind CSS v4, shadcn/ui, Supabase (auth + DB), Airtable (data provider), TanStack React Query, React Hook Form + Zod, Sonner (toasts), next-intl (i18n). Primary language is English; Spanish (ES) and English (EN) are supported via automatic browser language detection.
 
 ## Architecture
 
@@ -39,7 +39,7 @@ Three-layer permission checking:
 2. **Server layouts** — `(dashboard)/layout.tsx` checks `getUser()`, `admin/layout.tsx` checks role
 3. **Client components** — `<PermissionGate>` and `usePermissions()` hook for conditional UI
 
-Roles: `admin | manager | employee | client`. Resources: `timesheet | budgets | documents | schedules | admin | projects`. Access levels: `read < write < admin` (hierarchical).
+Roles: `admin | manager | employee | client | foreman`. Resources: `timesheet | budgets | documents | schedules | admin | projects`. Access levels: `read < write < admin` (hierarchical).
 
 Default permissions per role are in `constants.ts` (`DEFAULT_ROLE_PERMISSIONS`). Explicit per-user overrides come from the `user_permissions` Supabase table. Admins bypass all checks.
 
@@ -55,6 +55,25 @@ Uses `@supabase/ssr` (not the deprecated `@supabase/auth-helpers-nextjs`). Three
 - `client.ts` — Browser client (`createBrowserClient`)
 - `server.ts` — Server components/actions (cookie-based via `next/headers`)
 - `middleware.ts` — `updateSession()` for the Next.js middleware
+
+### Internationalization (src/i18n/, src/messages/)
+
+Uses `next-intl` with cookie-based locale detection (no URL prefixes). Supported locales: `es` (default), `en`.
+
+- **Config**: `src/i18n/config.ts` — locale constants, cookie name `NEXT_LOCALE`
+- **Request config**: `src/i18n/request.ts` — reads cookie to resolve locale, dynamically imports `src/messages/{locale}.json`
+- **Middleware**: `src/middleware.ts` — detects locale from `Accept-Language` header, persists in cookie (14 days)
+- **Root layout**: `src/app/layout.tsx` — wraps app in `<NextIntlClientProvider>`, sets `<html lang={locale}>`
+- **Translation files**: `src/messages/es.json`, `src/messages/en.json`
+- **Locale switcher**: `src/components/locale-switcher.tsx` + `src/hooks/use-locale-switch.ts`
+
+**Patterns:**
+- Server components: `const t = await getTranslations('namespace')` from `next-intl/server`
+- Client components: `const t = useTranslations('namespace')` from `next-intl`
+- NAV_ITEMS use `labelKey`/`sectionKey` (translation keys), resolved at render time with `t(item.labelKey)`
+- `TIPO_DE_HORAS_OPTIONS` values stay in Spanish (Airtable API IDs) — only display labels are translated via `tipoDeHoras` namespace
+- Dynamic translation keys: use `t.has(key) ? t(key) : fallback` for safety
+- Zod validation messages: define schema inside component with `useMemo` to capture `t()`
 
 ### Database Schema
 

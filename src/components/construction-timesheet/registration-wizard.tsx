@@ -15,10 +15,12 @@ import { StepWorkers } from "./steps/step-workers"
 import { StepWorkerDetails } from "./steps/step-worker-details"
 import { useCreateEntries } from "@/hooks/use-construction-timesheet"
 import type { CreateTimesheetPayload } from "@/types/construction-timesheet"
+import { useTranslations } from "next-intl"
 
 export function RegistrationWizard() {
   const { state, isOpen, close, dispatch } = useWizard()
   const createEntries = useCreateEntries()
+  const t = useTranslations("timesheet.wizard")
 
   async function handleSubmit() {
     if (
@@ -44,16 +46,14 @@ export function RegistrationWizard() {
 
     try {
       const result = await createEntries.mutateAsync(entries)
-      toast.success(
-        `${result.created} registro${result.created !== 1 ? "s" : ""} creado${result.created !== 1 ? "s" : ""}`
-      )
+      toast.success(t("submitSuccess", { count: result.created }))
       dispatch({ type: "RESET" })
       close()
     } catch (error) {
       toast.error(
         error instanceof Error
           ? error.message
-          : "Error al registrar horas"
+          : t("submitError")
       )
     }
   }
@@ -65,7 +65,7 @@ export function RegistrationWizard() {
         showCloseButton={false}
         className="h-[100dvh] !w-full !max-w-full !border-t-0 p-0 flex flex-col"
       >
-        <SheetTitle className="sr-only">Registrar Horas</SheetTitle>
+        <SheetTitle className="sr-only">{t("title")}</SheetTitle>
         <WizardHeader />
 
         <div className="flex-1 overflow-y-auto">

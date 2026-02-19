@@ -1,0 +1,280 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "comingSoon": "Próximamente...",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "search": "Buscar",
+    "add": "Agregar",
+    "apply": "Aplicar",
+    "syncing": "SINCRONIZANDO..."
+  },
+  "auth": {
+    "loginPrompt": "Ingresa con tu cuenta para continuar",
+    "email": "Email",
+    "emailPlaceholder": "tu@email.com",
+    "password": "Contraseña",
+    "welcome": "BIENVENIDO",
+    "submit": "INGRESAR",
+    "submitting": "INGRESANDO...",
+    "systemOnline": "SISTEMA EN LÍNEA",
+    "signOut": "Cerrar sesión",
+    "validation": {
+      "emailInvalid": "Email inválido",
+      "minChars": "Mínimo {count} caracteres"
+    }
+  },
+  "metadata": {
+    "title": "Plataforma de Construcción",
+    "description": "Plataforma operativa para construcción de lujo"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "timesheet": "Timesheet",
+    "projects": "Proyectos",
+    "documents": "Documentos",
+    "budgets": "Presupuestos",
+    "schedules": "Cronograma",
+    "admin": "Admin"
+  },
+  "projectNav": {
+    "dashboard": "Dashboard",
+    "spaceView": "Space View",
+    "productView": "Product View",
+    "finishSchedule": "Finish Schedule",
+    "takeoff": "Takeoff",
+    "team": "Project Team",
+    "permits": "Permits & Inspections",
+    "budget": "Budget",
+    "schedule": "Schedule",
+    "scm": "SCM",
+    "healthSafety": "H,S&WB",
+    "liveCamera": "Live Camera",
+    "sections": {
+      "projectDefinitions": "DEFINICIONES DEL PROYECTO"
+    }
+  },
+  "dashboard": {
+    "welcome": "Bienvenido",
+    "welcomeName": "Bienvenido, {name}",
+    "subtitle": "Panel principal de la plataforma",
+    "projects": "Proyectos",
+    "projectCount": "{count, plural, one {# proyecto} other {# proyectos}}",
+    "noProjects": "No hay proyectos asignados",
+    "admin": "Administración",
+    "adminCards": {
+      "timesheetTitle": "Timesheet",
+      "timesheetDesc": "Registrar y revisar horas trabajadas",
+      "adminTitle": "Administración",
+      "adminDesc": "Gestión de usuarios y permisos"
+    }
+  },
+  "projects": {
+    "title": "Proyectos",
+    "loading": "Cargando proyectos...",
+    "projectCount": "{count, plural, one {# proyecto} other {# proyectos}}",
+    "noProjects": "No hay proyectos disponibles",
+    "status": {
+      "active": "En Construcción",
+      "completed": "Completado",
+      "archived": "Archivado"
+    },
+    "overview": "Resumen del Proyecto",
+    "generalInfo": "Información General",
+    "client": "Cliente",
+    "location": "Ubicación",
+    "tbd": "Por definir",
+    "overviewCards": {
+      "documentsTitle": "Documentos",
+      "documentsDesc": "Planos y contratos",
+      "budgetTitle": "Presupuesto",
+      "budgetDesc": "Control de costos",
+      "scheduleTitle": "Cronograma",
+      "scheduleDesc": "Hitos del proyecto",
+      "teamTitle": "Equipo",
+      "teamDesc": "Miembros asignados"
+    }
+  },
+  "projectPages": {
+    "budget": "Budget",
+    "schedule": "Schedule",
+    "documents": "Documents",
+    "team": "Project Team",
+    "spaceView": "Space View",
+    "productView": "Product View",
+    "finishSchedule": "Finish Schedule",
+    "takeoff": "Takeoff",
+    "permits": "Permits & Inspections",
+    "scm": "SCM",
+    "healthSafety": "H, S & WB",
+    "liveCamera": "Live Camera"
+  },
+  "stubPages": {
+    "documents": "Documentos",
+    "budgets": "Presupuestos",
+    "schedules": "Cronograma"
+  },
+  "timesheet": {
+    "title": "Timesheet",
+    "subtitle": "Selecciona el módulo para registrar horas trabajadas",
+    "modules": {
+      "construction": {
+        "title": "Construction",
+        "description": "Horas de trabajo en obra y construcción"
+      },
+      "digitalTwin": {
+        "title": "Digital Twin",
+        "description": "Horas de modelado y gemelo digital"
+      },
+      "administration": {
+        "title": "Administration",
+        "description": "Horas administrativas y de oficina"
+      },
+      "scm": {
+        "title": "SCM",
+        "description": "Supply Chain Management - cadena de suministro"
+      },
+      "hsw": {
+        "title": "Health, Safety & Wellbeing",
+        "description": "Seguridad, salud y bienestar en obra"
+      },
+      "services": {
+        "title": "Services",
+        "description": "Servicios generales y soporte"
+      }
+    },
+    "construction": {
+      "title": "Timesheet — Construction",
+      "subtitle": "Registro diario de horas en obra"
+    },
+    "administrationPage": {
+      "title": "Timesheet — Administration"
+    },
+    "digitalTwinPage": {
+      "title": "Timesheet — Digital Twin"
+    },
+    "hswPage": {
+      "title": "Timesheet — Health, Safety & Wellbeing"
+    },
+    "scmPage": {
+      "title": "Timesheet — SCM"
+    },
+    "servicesPage": {
+      "title": "Timesheet — Services"
+    },
+    "dateNav": {
+      "today": "Hoy — {date}",
+      "yesterday": "Ayer — {date}"
+    },
+    "summary": {
+      "workers": "Trabajadores",
+      "totalHours": "Horas totales"
+    },
+    "workerList": {
+      "title": "Detalle por trabajador",
+      "noRecords": "Sin registros",
+      "noRecordsCTA": "Toca el botón + para registrar horas",
+      "deleted": "Registro eliminado",
+      "deleteError": "Error al eliminar"
+    },
+    "wizard": {
+      "title": "Registrar Horas",
+      "register": "Registrar",
+      "stepOf": "Paso {step} de 4",
+      "steps": {
+        "project": "Seleccionar Obra",
+        "plan": "Seleccionar Tarea",
+        "workers": "Seleccionar Obreros",
+        "configure": "Configurar Horas"
+      },
+      "searchProject": "Buscar obra...",
+      "noProjects": "No se encontraron obras",
+      "projectLabel": "Obra:",
+      "searchPlan": "Buscar tarea...",
+      "noPlans": "No se encontraron tareas para esta obra",
+      "planLabel": "Tarea:",
+      "workersLabel": "Trabajadores:",
+      "searchWorker": "Buscar trabajador...",
+      "noWorkers": "No se encontraron trabajadores para esta obra",
+      "selectAll": "Seleccionar todos",
+      "deselectAll": "Deseleccionar todos",
+      "existingHours": "{hours}/10 hs",
+      "applyAll": "Aplicar a todos",
+      "hoursForAll": "Horas para todos",
+      "tipoForAll": "Tipo de Horas para todos",
+      "nextCount": "Siguiente ({count})",
+      "submitButton": "Registrar {hours}h — {count, plural, one {# trabajador} other {# trabajadores}}",
+      "submitting": "Registrando...",
+      "submitSuccess": "{count, plural, one {# registro creado} other {# registros creados}}",
+      "submitError": "Error al registrar horas"
+    },
+    "workerCard": {
+      "maxHours": "Max {hours}h",
+      "hours": "Horas",
+      "detail": "Detail (opcional)",
+      "selectDetail": "Seleccionar detail...",
+      "tipoDeHoras": "Tipo de Horas",
+      "comments": "Comentarios (opcional)",
+      "writePlaceholder": "Escribir comentario..."
+    }
+  },
+  "tipoDeHoras": {
+    "Horas normales": "Horas normales",
+    "Horas extras": "Horas extras",
+    "Feriado": "Feriado",
+    "Lluvia": "Lluvia",
+    "Vacaciones": "Vacaciones",
+    "Falta justificada": "Falta justificada",
+    "ART": "ART",
+    "Certificado Medico": "Certificado Médico",
+    "Fallecimiento familiar": "Fallecimiento familiar",
+    "Suspension": "Suspensión",
+    "Casamiento": "Casamiento",
+    "Ausente": "Ausente"
+  },
+  "admin": {
+    "users": {
+      "title": "Gestión de Usuarios",
+      "subtitle": "Administrar usuarios y sus roles",
+      "loading": "Cargando usuarios...",
+      "noUsers": "No hay usuarios registrados",
+      "roleUpdated": "Rol actualizado",
+      "roleError": "Error al actualizar rol"
+    },
+    "permissions": {
+      "title": "Permisos",
+      "subtitle": "Asignar permisos por recurso y proyecto",
+      "selectUser": "Seleccionar usuario",
+      "assigned": "Permisos asignados",
+      "noExplicit": "Sin permisos explícitos asignados",
+      "project": "Proyecto:",
+      "assignSuccess": "Permiso asignado",
+      "assignError": "Error al asignar permiso",
+      "revokeSuccess": "Permiso revocado",
+      "revokeError": "Error al revocar permiso"
+    }
+  },
+  "roles": {
+    "admin": "Admin",
+    "manager": "Manager",
+    "employee": "Employee",
+    "client": "Client",
+    "foreman": "Foreman"
+  },
+  "resources": {
+    "timesheet": "Timesheet",
+    "budgets": "Presupuestos",
+    "documents": "Documentos",
+    "schedules": "Cronograma",
+    "projects": "Proyectos",
+    "admin": "Admin"
+  },
+  "accessLevels": {
+    "read": "Lectura",
+    "write": "Escritura",
+    "admin": "Admin"
+  }
+}

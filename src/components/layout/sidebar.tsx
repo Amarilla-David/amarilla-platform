@@ -19,6 +19,8 @@ import { NAV_ITEMS } from "@/lib/permissions/constants"
 import { Logo } from "@/components/brand/logo"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { LocaleSwitcher } from "@/components/locale-switcher"
+import { useLocale, useTranslations } from "next-intl"
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard,
@@ -34,6 +36,8 @@ export function Sidebar() {
   const pathname = usePathname()
   const { hasPermission } = usePermissions()
   const { profile, signOut } = useAuthContext()
+  const t = useTranslations()
+  const locale = useLocale()
 
   const visibleItems = NAV_ITEMS.filter((item) =>
     hasPermission(item.resource, item.requiredLevel)
@@ -81,7 +85,7 @@ export function Sidebar() {
                   )}
                 />
               )}
-              <span>{item.label}</span>
+              <span>{t(item.labelKey)}</span>
             </Link>
           )
         })}
@@ -103,6 +107,7 @@ export function Sidebar() {
               {profile?.role}
             </p>
           </div>
+          <LocaleSwitcher currentLocale={locale} />
           <Button
             variant="ghost"
             size="icon"

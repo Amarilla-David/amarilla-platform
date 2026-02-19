@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useAuthContext } from "@/components/providers/auth-provider"
 import { Logo } from "@/components/brand/logo"
+import { LocaleSwitcher } from "@/components/locale-switcher"
+import { useLocale, useTranslations } from "next-intl"
 
 interface HeaderProps {
   onMenuToggle?: () => void
@@ -19,6 +21,8 @@ interface HeaderProps {
 
 export function Header({ onMenuToggle, showMenuButton = false }: HeaderProps) {
   const { profile, signOut } = useAuthContext()
+  const t = useTranslations("auth")
+  const locale = useLocale()
   const initials =
     profile?.full_name
       ?.split(" ")
@@ -40,6 +44,8 @@ export function Header({ onMenuToggle, showMenuButton = false }: HeaderProps) {
           <Logo variant="dark" size="sm" />
         </div>
 
+        <LocaleSwitcher currentLocale={locale} />
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -57,7 +63,7 @@ export function Header({ onMenuToggle, showMenuButton = false }: HeaderProps) {
             </DropdownMenuItem>
             <DropdownMenuItem onClick={signOut}>
               <LogOut className="mr-2 h-4 w-4" />
-              Cerrar sesion
+              {t("signOut")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

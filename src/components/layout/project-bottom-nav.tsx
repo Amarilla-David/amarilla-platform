@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils"
 import { usePermissions } from "@/hooks/use-permissions"
 import { useProject } from "@/hooks/use-project"
 import { PROJECT_NAV_ITEMS } from "@/lib/permissions/constants"
+import { useTranslations } from "next-intl"
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard,
@@ -42,6 +43,7 @@ export function ProjectBottomNav() {
   const pathname = usePathname()
   const { hasPermission } = usePermissions()
   const { project } = useProject()
+  const t = useTranslations()
 
   const basePath = `/projects/${project.id}`
 
@@ -72,7 +74,7 @@ export function ProjectBottomNav() {
               )}
             >
               {Icon && <Icon className="h-5 w-5" />}
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <span className="text-[10px] font-medium">{t(item.labelKey)}</span>
             </Link>
           )
         })}

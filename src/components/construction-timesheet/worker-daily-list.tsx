@@ -8,6 +8,7 @@ import { useDeleteEntry } from "@/hooks/use-construction-timesheet"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import type { TimesheetRecord } from "@/types/construction-timesheet"
+import { useTranslations } from "next-intl"
 
 interface WorkerDailyListProps {
   entries: TimesheetRecord[]
@@ -23,6 +24,7 @@ interface GroupedWorker {
 export function WorkerDailyList({ entries }: WorkerDailyListProps) {
   const [expandedWorker, setExpandedWorker] = useState<string | null>(null)
   const deleteEntry = useDeleteEntry()
+  const t = useTranslations("timesheet.workerList")
 
   // Group entries by worker
   const grouped: GroupedWorker[] = []
@@ -48,9 +50,9 @@ export function WorkerDailyList({ entries }: WorkerDailyListProps) {
   if (grouped.length === 0) {
     return (
       <div className="text-center py-12 text-muted-foreground">
-        <p className="text-lg">Sin registros</p>
+        <p className="text-lg">{t("noRecords")}</p>
         <p className="text-sm mt-1">
-          Toca el boton + para registrar horas
+          {t("noRecordsCTA")}
         </p>
       </div>
     )
@@ -58,15 +60,15 @@ export function WorkerDailyList({ entries }: WorkerDailyListProps) {
 
   function handleDelete(recordId: string) {
     deleteEntry.mutate(recordId, {
-      onSuccess: () => toast.success("Registro eliminado"),
-      onError: () => toast.error("Error al eliminar"),
+      onSuccess: () => toast.success(t("deleted")),
+      onError: () => toast.error(t("deleteError")),
     })
   }
 
   return (
     <div className="space-y-2">
       <h3 className="text-sm font-medium text-muted-foreground">
-        Detalle por trabajador
+        {t("title")}
       </h3>
       {grouped.map((worker) => {
         const isExpanded = expandedWorker === worker.personId

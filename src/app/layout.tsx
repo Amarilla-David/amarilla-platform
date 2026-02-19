@@ -1,8 +1,9 @@
-import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { QueryProvider } from "@/components/providers/query-provider"
 import { Toaster } from "@/components/ui/sonner"
+import { getLocale, getMessages, getTranslations } from "next-intl/server"
+import { NextIntlClientProvider } from "next-intl"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,28 +15,36 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 })
 
-export const metadata: Metadata = {
-  title: "Plataforma de Construccion",
-  description: "Plataforma operativa para construccion de lujo",
-  icons: {
-    icon: "/amarilla_favicon.png",
-  },
+export async function generateMetadata() {
+  const t = await getTranslations("metadata")
+  return {
+    title: t("title"),
+    description: t("description"),
+    icons: {
+      icon: "/amarilla_favicon.png",
+    },
+  }
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const locale = await getLocale()
+  const messages = await getMessages()
+
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryProvider>
-          {children}
-        </QueryProvider>
-        <Toaster />
+        <NextIntlClientProvider messages={messages}>
+          <QueryProvider>
+            {children}
+          </QueryProvider>
+          <Toaster />
+        </NextIntlClientProvider>
       </body>
     </html>
   )

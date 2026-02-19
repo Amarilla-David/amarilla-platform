@@ -11,6 +11,7 @@ import {
 } from "@/hooks/use-construction-timesheet"
 import { useWizard } from "../wizard-provider"
 import { cn } from "@/lib/utils"
+import { useTranslations } from "next-intl"
 
 export function StepWorkers() {
   const { state, dispatch } = useWizard()
@@ -20,6 +21,7 @@ export function StepWorkers() {
   )
   const { data: entriesData } = useDailyEntries(state.date)
   const [search, setSearch] = useState("")
+  const t = useTranslations("timesheet.wizard")
 
   const workers = (workersData?.workers ?? []).filter((w) =>
     w.name.toLowerCase().includes(search.toLowerCase())
@@ -71,17 +73,17 @@ export function StepWorkers() {
     <div className="flex flex-col gap-3 p-4">
       <div className="text-sm text-muted-foreground space-y-0.5">
         <p>
-          Obra: <span className="font-medium text-foreground">{state.selectedProjectName}</span>
+          {t("projectLabel")} <span className="font-medium text-foreground">{state.selectedProjectName}</span>
         </p>
         <p>
-          Tarea: <span className="font-medium text-foreground">{state.selectedProjectPlanName}</span>
+          {t("planLabel")} <span className="font-medium text-foreground">{state.selectedProjectPlanName}</span>
         </p>
       </div>
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
-          placeholder="Buscar trabajador..."
+          placeholder={t("searchWorker")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="pl-9 h-11"
@@ -97,12 +99,12 @@ export function StepWorkers() {
         {allSelected ? (
           <>
             <Users className="h-4 w-4" />
-            Deseleccionar todos
+            {t("deselectAll")}
           </>
         ) : (
           <>
             <UserCheck className="h-4 w-4" />
-            Seleccionar todos
+            {t("selectAll")}
           </>
         )}
       </Button>
@@ -175,7 +177,7 @@ export function StepWorkers() {
                   variant={isFull ? "destructive" : "outline"}
                   className="text-xs shrink-0"
                 >
-                  {existingHours}/10 hs
+                  {t("existingHours", { hours: existingHours })}
                 </Badge>
               )}
             </div>
@@ -184,7 +186,7 @@ export function StepWorkers() {
 
         {workers.length === 0 && (
           <p className="text-center text-muted-foreground py-8">
-            No se encontraron trabajadores para esta obra
+            {t("noWorkers")}
           </p>
         )}
       </div>

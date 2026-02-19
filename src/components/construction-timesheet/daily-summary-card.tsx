@@ -3,6 +3,7 @@
 import { Users, Clock } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import type { TimesheetRecord } from "@/types/construction-timesheet"
+import { useTranslations } from "next-intl"
 
 interface DailySummaryCardProps {
   entries: TimesheetRecord[]
@@ -11,6 +12,7 @@ interface DailySummaryCardProps {
 export function DailySummaryCard({ entries }: DailySummaryCardProps) {
   const uniqueWorkers = new Set(entries.map((e) => e.personId)).size
   const totalHours = entries.reduce((sum, e) => sum + e.hours, 0)
+  const t = useTranslations("timesheet.summary")
 
   return (
     <Card>
@@ -22,7 +24,7 @@ export function DailySummaryCard({ entries }: DailySummaryCardProps) {
             </div>
             <div>
               <p className="text-2xl font-bold tabular-nums">{uniqueWorkers}</p>
-              <p className="text-xs text-muted-foreground">Trabajadores</p>
+              <p className="text-xs text-muted-foreground">{t("workers")}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -31,7 +33,7 @@ export function DailySummaryCard({ entries }: DailySummaryCardProps) {
             </div>
             <div>
               <p className="text-2xl font-bold tabular-nums">{totalHours}</p>
-              <p className="text-xs text-muted-foreground">Horas totales</p>
+              <p className="text-xs text-muted-foreground">{t("totalHours")}</p>
             </div>
           </div>
         </div>

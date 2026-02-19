@@ -1,0 +1,280 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "comingSoon": "Coming soon...",
+    "back": "Back",
+    "next": "Next",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "search": "Search",
+    "add": "Add",
+    "apply": "Apply",
+    "syncing": "SYNCING..."
+  },
+  "auth": {
+    "loginPrompt": "Sign in with your account to continue",
+    "email": "Email",
+    "emailPlaceholder": "you@email.com",
+    "password": "Password",
+    "welcome": "WELCOME",
+    "submit": "LOGIN",
+    "submitting": "LOGGING IN...",
+    "systemOnline": "SYSTEM ONLINE",
+    "signOut": "Sign out",
+    "validation": {
+      "emailInvalid": "Invalid email",
+      "minChars": "Minimum {count} characters"
+    }
+  },
+  "metadata": {
+    "title": "Construction Platform",
+    "description": "Operational platform for luxury construction"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "timesheet": "Timesheet",
+    "projects": "Projects",
+    "documents": "Documents",
+    "budgets": "Budgets",
+    "schedules": "Schedule",
+    "admin": "Admin"
+  },
+  "projectNav": {
+    "dashboard": "Dashboard",
+    "spaceView": "Space View",
+    "productView": "Product View",
+    "finishSchedule": "Finish Schedule",
+    "takeoff": "Takeoff",
+    "team": "Project Team",
+    "permits": "Permits & Inspections",
+    "budget": "Budget",
+    "schedule": "Schedule",
+    "scm": "SCM",
+    "healthSafety": "H,S&WB",
+    "liveCamera": "Live Camera",
+    "sections": {
+      "projectDefinitions": "PROJECT DEFINITIONS"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "welcomeName": "Welcome, {name}",
+    "subtitle": "Main platform panel",
+    "projects": "Projects",
+    "projectCount": "{count, plural, one {# project} other {# projects}}",
+    "noProjects": "No projects assigned",
+    "admin": "Administration",
+    "adminCards": {
+      "timesheetTitle": "Timesheet",
+      "timesheetDesc": "Record and review work hours",
+      "adminTitle": "Administration",
+      "adminDesc": "User and permission management"
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "loading": "Loading projects...",
+    "projectCount": "{count, plural, one {# project} other {# projects}}",
+    "noProjects": "No projects available",
+    "status": {
+      "active": "Under Construction",
+      "completed": "Completed",
+      "archived": "Archived"
+    },
+    "overview": "Project Overview",
+    "generalInfo": "General Information",
+    "client": "Client",
+    "location": "Location",
+    "tbd": "To be defined",
+    "overviewCards": {
+      "documentsTitle": "Documents",
+      "documentsDesc": "Plans and contracts",
+      "budgetTitle": "Budget",
+      "budgetDesc": "Cost control",
+      "scheduleTitle": "Schedule",
+      "scheduleDesc": "Project milestones",
+      "teamTitle": "Team",
+      "teamDesc": "Assigned members"
+    }
+  },
+  "projectPages": {
+    "budget": "Budget",
+    "schedule": "Schedule",
+    "documents": "Documents",
+    "team": "Project Team",
+    "spaceView": "Space View",
+    "productView": "Product View",
+    "finishSchedule": "Finish Schedule",
+    "takeoff": "Takeoff",
+    "permits": "Permits & Inspections",
+    "scm": "SCM",
+    "healthSafety": "H, S & WB",
+    "liveCamera": "Live Camera"
+  },
+  "stubPages": {
+    "documents": "Documents",
+    "budgets": "Budgets",
+    "schedules": "Schedule"
+  },
+  "timesheet": {
+    "title": "Timesheet",
+    "subtitle": "Select the module to record work hours",
+    "modules": {
+      "construction": {
+        "title": "Construction",
+        "description": "On-site construction work hours"
+      },
+      "digitalTwin": {
+        "title": "Digital Twin",
+        "description": "Modeling and digital twin hours"
+      },
+      "administration": {
+        "title": "Administration",
+        "description": "Administrative and office hours"
+      },
+      "scm": {
+        "title": "SCM",
+        "description": "Supply Chain Management"
+      },
+      "hsw": {
+        "title": "Health, Safety & Wellbeing",
+        "description": "Health, safety and wellbeing on site"
+      },
+      "services": {
+        "title": "Services",
+        "description": "General services and support"
+      }
+    },
+    "construction": {
+      "title": "Timesheet — Construction",
+      "subtitle": "Daily on-site hours log"
+    },
+    "administrationPage": {
+      "title": "Timesheet — Administration"
+    },
+    "digitalTwinPage": {
+      "title": "Timesheet — Digital Twin"
+    },
+    "hswPage": {
+      "title": "Timesheet — Health, Safety & Wellbeing"
+    },
+    "scmPage": {
+      "title": "Timesheet — SCM"
+    },
+    "servicesPage": {
+      "title": "Timesheet — Services"
+    },
+    "dateNav": {
+      "today": "Today — {date}",
+      "yesterday": "Yesterday — {date}"
+    },
+    "summary": {
+      "workers": "Workers",
+      "totalHours": "Total hours"
+    },
+    "workerList": {
+      "title": "Detail by worker",
+      "noRecords": "No records",
+      "noRecordsCTA": "Tap the + button to record hours",
+      "deleted": "Record deleted",
+      "deleteError": "Error deleting record"
+    },
+    "wizard": {
+      "title": "Record Hours",
+      "register": "Record",
+      "stepOf": "Step {step} of 4",
+      "steps": {
+        "project": "Select Project",
+        "plan": "Select Task",
+        "workers": "Select Workers",
+        "configure": "Configure Hours"
+      },
+      "searchProject": "Search project...",
+      "noProjects": "No projects found",
+      "projectLabel": "Project:",
+      "searchPlan": "Search task...",
+      "noPlans": "No tasks found for this project",
+      "planLabel": "Task:",
+      "workersLabel": "Workers:",
+      "searchWorker": "Search worker...",
+      "noWorkers": "No workers found for this project",
+      "selectAll": "Select all",
+      "deselectAll": "Deselect all",
+      "existingHours": "{hours}/10 hrs",
+      "applyAll": "Apply to all",
+      "hoursForAll": "Hours for all",
+      "tipoForAll": "Hour type for all",
+      "nextCount": "Next ({count})",
+      "submitButton": "Record {hours}h — {count, plural, one {# worker} other {# workers}}",
+      "submitting": "Recording...",
+      "submitSuccess": "{count, plural, one {# record created} other {# records created}}",
+      "submitError": "Error recording hours"
+    },
+    "workerCard": {
+      "maxHours": "Max {hours}h",
+      "hours": "Hours",
+      "detail": "Detail (optional)",
+      "selectDetail": "Select detail...",
+      "tipoDeHoras": "Hour Type",
+      "comments": "Comments (optional)",
+      "writePlaceholder": "Write a comment..."
+    }
+  },
+  "tipoDeHoras": {
+    "Horas normales": "Regular Hours",
+    "Horas extras": "Overtime",
+    "Feriado": "Holiday",
+    "Lluvia": "Rain",
+    "Vacaciones": "Vacation",
+    "Falta justificada": "Excused Absence",
+    "ART": "Workers' Comp",
+    "Certificado Medico": "Medical Certificate",
+    "Fallecimiento familiar": "Family Bereavement",
+    "Suspension": "Suspension",
+    "Casamiento": "Marriage",
+    "Ausente": "Absent"
+  },
+  "admin": {
+    "users": {
+      "title": "User Management",
+      "subtitle": "Manage users and their roles",
+      "loading": "Loading users...",
+      "noUsers": "No registered users",
+      "roleUpdated": "Role updated",
+      "roleError": "Error updating role"
+    },
+    "permissions": {
+      "title": "Permissions",
+      "subtitle": "Assign permissions by resource and project",
+      "selectUser": "Select user",
+      "assigned": "Assigned permissions",
+      "noExplicit": "No explicit permissions assigned",
+      "project": "Project:",
+      "assignSuccess": "Permission assigned",
+      "assignError": "Error assigning permission",
+      "revokeSuccess": "Permission revoked",
+      "revokeError": "Error revoking permission"
+    }
+  },
+  "roles": {
+    "admin": "Admin",
+    "manager": "Manager",
+    "employee": "Employee",
+    "client": "Client",
+    "foreman": "Foreman"
+  },
+  "resources": {
+    "timesheet": "Timesheet",
+    "budgets": "Budgets",
+    "documents": "Documents",
+    "schedules": "Schedule",
+    "projects": "Projects",
+    "admin": "Admin"
+  },
+  "accessLevels": {
+    "read": "Read",
+    "write": "Write",
+    "admin": "Admin"
+  }
+}
