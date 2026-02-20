@@ -173,6 +173,11 @@
       "workers": "Workers",
       "totalHours": "Total hours"
     },
+    "planList": {
+      "title": "Project Plans",
+      "workers": "workers",
+      "hours": "hours"
+    },
     "workerList": {
       "title": "Detail by worker",
       "noRecords": "No records",
@@ -186,16 +191,16 @@
       "stepOf": "Step {step} of 4",
       "steps": {
         "project": "Select Project",
-        "plan": "Select Task",
+        "plan": "Select Project Plan",
         "workers": "Select Workers",
         "configure": "Configure Hours"
       },
       "searchProject": "Search project...",
       "noProjects": "No projects found",
       "projectLabel": "Project:",
-      "searchPlan": "Search task...",
-      "noPlans": "No tasks found for this project",
-      "planLabel": "Task:",
+      "searchPlan": "Search project plan...",
+      "noPlans": "No project plans found for this project",
+      "planLabel": "Project Plan:",
       "workersLabel": "Workers:",
       "searchWorker": "Search worker...",
       "noWorkers": "No workers found for this project",
@@ -209,7 +214,8 @@
       "submitButton": "Record {hours}h — {count, plural, one {# worker} other {# workers}}",
       "submitting": "Recording...",
       "submitSuccess": "{count, plural, one {# record created} other {# records created}}",
-      "submitError": "Error recording hours"
+      "submitError": "Error recording hours",
+      "back": "Back"
     },
     "workerCard": {
       "maxHours": "Max {hours}h",

@@ -23,6 +23,8 @@ export const ctKeys = {
     [...ctKeys.all, "workers", projectId] as const,
   projectPlans: (projectId: string) =>
     [...ctKeys.all, "project-plans", projectId] as const,
+  projectPlanAccess: (email: string) =>
+    [...ctKeys.all, "project-plan-access", email] as const,
   details: (projectPlanId: string) =>
     [...ctKeys.all, "details", projectPlanId] as const,
   entries: (date: string, projectId?: string) =>
@@ -73,6 +75,36 @@ export function useProjectPlans(planIds: string[]) {
   })
 }
 
+export interface ProjectPlanAccessEntry {
+  projectPlanIds: string[]
+  active: boolean
+}
+
+export interface PlanWorkerMapEntry {
+  personIds: string[]
+  hasActive: boolean
+}
+
+export interface ProjectPlanAccessResponse {
+  userAccess: ProjectPlanAccessEntry[]
+  planWorkerMap: Record<string, PlanWorkerMapEntry>
+}
+
+export function useProjectPlanAccess(userEmail: string | null | undefined) {
+  return useQuery<ProjectPlanAccessResponse>({
+    queryKey: ctKeys.projectPlanAccess(userEmail!),
+    queryFn: async () => {
+      const res = await fetch(
+        `/api/timesheet/construction/project-plan-access?userEmail=${encodeURIComponent(userEmail!)}`,
+        { cache: "no-store" }
+      )
+      return res.json()
+    },
+    enabled: !!userEmail,
+    staleTime: 5 * 60 * 1000,
+  })
+}
+
 export function useDetails(projectPlanId: string | null) {
   return useQuery<{ details: DetailOption[] }>({
     queryKey: ctKeys.details(projectPlanId!),
@@ -92,7 +124,8 @@ export function useDailyEntries(date: string, projectId?: string) {
       const params = new URLSearchParams({ date })
       if (projectId) params.set("projectId", projectId)
       return fetch(
-        `/api/timesheet/construction/entries?${params}`
+        `/api/timesheet/construction/entries?${params}`,
+        { cache: "no-store" }
       ).then((r) => r.json())
     },
     staleTime: 30 * 1000,

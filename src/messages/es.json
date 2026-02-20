@@ -173,6 +173,11 @@
       "workers": "Trabajadores",
       "totalHours": "Horas totales"
     },
+    "planList": {
+      "title": "Project Plans",
+      "workers": "trabajadores",
+      "hours": "horas"
+    },
     "workerList": {
       "title": "Detalle por trabajador",
       "noRecords": "Sin registros",
@@ -186,16 +191,16 @@
       "stepOf": "Paso {step} de 4",
       "steps": {
         "project": "Seleccionar Obra",
-        "plan": "Seleccionar Tarea",
+        "plan": "Seleccionar Project Plan",
         "workers": "Seleccionar Obreros",
         "configure": "Configurar Horas"
       },
       "searchProject": "Buscar obra...",
       "noProjects": "No se encontraron obras",
       "projectLabel": "Obra:",
-      "searchPlan": "Buscar tarea...",
-      "noPlans": "No se encontraron tareas para esta obra",
-      "planLabel": "Tarea:",
+      "searchPlan": "Buscar project plan...",
+      "noPlans": "No se encontraron project plans para esta obra",
+      "planLabel": "Project Plan:",
       "workersLabel": "Trabajadores:",
       "searchWorker": "Buscar trabajador...",
       "noWorkers": "No se encontraron trabajadores para esta obra",
@@ -209,7 +214,8 @@
       "submitButton": "Registrar {hours}h — {count, plural, one {# trabajador} other {# trabajadores}}",
       "submitting": "Registrando...",
       "submitSuccess": "{count, plural, one {# registro creado} other {# registros creados}}",
-      "submitError": "Error al registrar horas"
+      "submitError": "Error al registrar horas",
+      "back": "Atrás"
     },
     "workerCard": {
       "maxHours": "Max {hours}h",

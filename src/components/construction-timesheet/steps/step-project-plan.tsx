@@ -1,12 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { Search, ClipboardList } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import {
   useConstructionProjects,
   useProjectPlans,
+  useProjectPlanAccess,
 } from "@/hooks/use-construction-timesheet"
+import { useAuthContext } from "@/components/providers/auth-provider"
 import { useWizard } from "../wizard-provider"
 import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
@@ -14,6 +16,8 @@ import { useTranslations } from "next-intl"
 export function StepProjectPlan() {
   const { state, dispatch } = useWizard()
   const { data: projectsData } = useConstructionProjects()
+  const { user } = useAuthContext()
+  const { data: accessData } = useProjectPlanAccess(user?.email)
   const [search, setSearch] = useState("")
   const t = useTranslations("timesheet.wizard")
 
@@ -25,9 +29,28 @@ export function StepProjectPlan() {
 
   const { data, isLoading } = useProjectPlans(planIds)
 
-  const plans = (data?.projectPlans ?? []).filter((p) =>
-    p.name.toLowerCase().includes(search.toLowerCase())
-  )
+  // Filter plans based on Project Plan Access rules:
+  // - If any access record has active=true → show ALL plans (no filtering)
+  // - If active=false → only show plans listed in the user's projectPlanIds
+  // - If no access records → show ALL plans (no restrictions)
+  const allowedPlanIds = useMemo(() => {
+    const accessEntries = accessData?.userAccess ?? []
+    if (accessEntries.length === 0) return null // no restrictions
+    const hasActive = accessEntries.some((a) => a.active)
+    if (hasActive) return null // full access
+    // Collect all allowed plan IDs from non-active entries
+    const ids = new Set<string>()
+    for (const entry of accessEntries) {
+      for (const id of entry.projectPlanIds) {
+        ids.add(id)
+      }
+    }
+    return ids
+  }, [accessData])
+
+  const plans = (data?.projectPlans ?? [])
+    .filter((p) => allowedPlanIds === null || allowedPlanIds.has(p.id))
+    .filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
 
   if (isLoading) {
     return (

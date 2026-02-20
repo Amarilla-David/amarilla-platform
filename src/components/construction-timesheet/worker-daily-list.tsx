@@ -120,9 +120,24 @@ export function WorkerDailyList({ entries }: WorkerDailyListProps) {
                     )}
                   >
                     <div className="min-w-0 space-y-0.5">
-                      <p className="text-sm font-medium truncate">
-                        {entry.projectPlanName}
-                      </p>
+                      <div className="flex items-center gap-1.5">
+                        <p className="text-sm font-medium truncate">
+                          {entry.projectPlanName}
+                        </p>
+                        {entry.projectPlanStatus && (
+                          <Badge
+                            variant="outline"
+                            className={cn(
+                              "text-[10px] shrink-0 px-1.5 py-0",
+                              entry.projectPlanStatus === "Active" && "border-green-500 text-green-600",
+                              entry.projectPlanStatus === "Completed" && "border-blue-500 text-blue-600",
+                              entry.projectPlanStatus === "On Hold" && "border-yellow-500 text-yellow-600",
+                            )}
+                          >
+                            {entry.projectPlanStatus}
+                          </Badge>
+                        )}
+                      </div>
                       <div className="flex flex-wrap gap-1">
                         <Badge variant="secondary" className="text-xs">
                           {entry.hours}h

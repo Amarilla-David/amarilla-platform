@@ -68,6 +68,7 @@ export interface TimesheetRecord {
   tipoDeHoras: TipoDeHoras
   comments: string
   status: string
+  projectPlanStatus: string
 }
 
 // ── Wizard state ──────────────────────────────────────────────

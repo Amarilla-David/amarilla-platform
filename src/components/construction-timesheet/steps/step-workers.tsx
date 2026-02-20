@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { Search, UserCheck, Users } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -8,24 +8,57 @@ import { Badge } from "@/components/ui/badge"
 import {
   useWorkers,
   useDailyEntries,
+  useProjectPlanAccess,
 } from "@/hooks/use-construction-timesheet"
+import { useAuthContext } from "@/components/providers/auth-provider"
 import { useWizard } from "../wizard-provider"
 import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 
 export function StepWorkers() {
   const { state, dispatch } = useWizard()
+  const { user } = useAuthContext()
   const { data: workersData, isLoading } = useWorkers(
     state.selectedProjectId,
     state.selectedProjectName
   )
+  const { data: accessData } = useProjectPlanAccess(user?.email)
   const { data: entriesData } = useDailyEntries(state.date)
   const [search, setSearch] = useState("")
   const t = useTranslations("timesheet.wizard")
 
-  const workers = (workersData?.workers ?? []).filter((w) =>
-    w.name.toLowerCase().includes(search.toLowerCase())
-  )
+  // Filter workers based on Project Plan Access for the selected plan:
+  // - If planWorkerMap has entry for this plan → show plan-specific workers + globally active workers
+  // - If plan NOT in map but active workers exist → show only active workers
+  // - If hasActive=true on the plan entry → show all (someone marked active for this plan)
+  // - If no planWorkerMap data at all → show all (no access config)
+  const allowedWorkerIds = useMemo(() => {
+    const planWorkerMap = accessData?.planWorkerMap
+    if (!planWorkerMap || !state.selectedProjectPlanId) return null // no restrictions
+
+    const planEntry = planWorkerMap[state.selectedProjectPlanId]
+    const activePersons = planWorkerMap["__active__"]?.personIds ?? []
+
+    if (planEntry?.hasActive) return null // someone has active=true for this plan, show all
+
+    if (planEntry) {
+      // Plan has specific workers assigned — show them + globally active workers
+      const ids = new Set([...planEntry.personIds, ...activePersons])
+      return ids.size > 0 ? ids : null
+    }
+
+    // Plan NOT in map — if there are globally active workers, only show them
+    // If no active workers either, fall back to showing all (no restrictions configured)
+    if (activePersons.length > 0) {
+      return new Set(activePersons)
+    }
+
+    return null
+  }, [accessData, state.selectedProjectPlanId])
+
+  const workers = (workersData?.workers ?? [])
+    .filter((w) => allowedWorkerIds === null || allowedWorkerIds.has(w.id))
+    .filter((w) => w.name.toLowerCase().includes(search.toLowerCase()))
 
   // Calculate existing hours per worker
   const hoursByWorker: Record<string, number> = {}

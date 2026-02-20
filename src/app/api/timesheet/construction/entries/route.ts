@@ -39,6 +39,7 @@ function mapRecord(r: {
       "Horas normales",
     comments: (r.fields["Comments"] as string) ?? "",
     status: (r.fields["Status"] as string) ?? "",
+    projectPlanStatus: "",
   }
 }
 
@@ -56,7 +57,7 @@ export async function GET(request: NextRequest) {
     }
 
     const baseId = getTimesheetBaseId()
-    const formulaParts: string[] = [`{Date} = '${date}'`]
+    const formulaParts: string[] = [`IS_SAME({Date}, '${date}', 'day')`]
 
     if (projectId) {
       formulaParts.push(`FIND("${projectId}", ARRAYJOIN({Project Selected}))`)
@@ -71,11 +72,68 @@ export async function GET(request: NextRequest) {
       filterByFormula,
       sort: [{ field: "Date", direction: "desc" }],
       maxRecords: 500,
+      noCache: true,
     })
 
     const entries = result.records.map(mapRecord)
 
-    return NextResponse.json({ entries })
+    // Resolve names and status for linked records (Person from Amarilla, Project Plan)
+    const personIds = [...new Set(entries.map((e) => e.personId).filter(Boolean))]
+    const planIds = [...new Set(entries.map((e) => e.projectPlanId).filter(Boolean))]
+
+    const personNameMap: Record<string, string> = {}
+    const planNameMap: Record<string, string> = {}
+    const planStatusMap: Record<string, string> = {}
+
+    const lookups: Promise<void>[] = []
+
+    if (personIds.length > 0) {
+      const formula = `OR(${personIds.map((id) => `RECORD_ID()='${id}'`).join(",")})`
+      lookups.push(
+        airtableFetch(baseId, "Amarilla", {
+          filterByFormula: formula,
+          maxRecords: personIds.length,
+          noCache: true,
+        }).then((res) => {
+          for (const r of res.records) {
+            personNameMap[r.id] = ((r.fields["Person"] as string) ?? "").trim()
+          }
+        })
+      )
+    }
+
+    if (planIds.length > 0) {
+      const formula = `OR(${planIds.map((id) => `RECORD_ID()='${id}'`).join(",")})`
+      lookups.push(
+        airtableFetch(baseId, "Project Plan", {
+          filterByFormula: formula,
+          maxRecords: planIds.length,
+          noCache: true,
+        }).then((res) => {
+          for (const r of res.records) {
+            planNameMap[r.id] =
+              (r.fields["Project Plan New"] as string) ??
+              (r.fields["Project Plan Code"] as string) ??
+              ""
+            planStatusMap[r.id] = (r.fields["Status"] as string) ?? ""
+          }
+        })
+      )
+    }
+
+    await Promise.all(lookups)
+
+    const enrichedEntries = entries.map((e) => ({
+      ...e,
+      personName: personNameMap[e.personId] || e.personName,
+      projectPlanName: planNameMap[e.projectPlanId] || e.projectPlanName,
+      projectPlanStatus: planStatusMap[e.projectPlanId] ?? "",
+    }))
+
+    return NextResponse.json(
+      { entries: enrichedEntries },
+      { headers: { "Cache-Control": "no-store" } }
+    )
   } catch (error) {
     console.error("Error fetching entries:", error)
     return NextResponse.json(
@@ -104,8 +162,9 @@ export async function POST(request: NextRequest) {
     const date = entries[0].date
 
     const existingResult = await airtableFetch(baseId, "Timesheet", {
-      filterByFormula: `{Date} = '${date}'`,
+      filterByFormula: `IS_SAME({Date}, '${date}', 'day')`,
       maxRecords: 500,
+      noCache: true,
     })
 
     const existingHoursByPerson: Record<string, number> = {}
@@ -154,7 +213,6 @@ export async function POST(request: NextRequest) {
         fields["Comments"] = entry.comments
       }
 
-      console.log("Creating timesheet entry with fields:", JSON.stringify(fields, null, 2))
       const record = await airtableCreate(baseId, "Timesheet", fields)
       created.push(mapRecord(record))
     }

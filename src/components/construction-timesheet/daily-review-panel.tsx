@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useDailyEntries } from "@/hooks/use-construction-timesheet"
 import { DateNavigator } from "./date-navigator"
 import { DailySummaryCard } from "./daily-summary-card"
+import { ProjectPlanDailyList } from "./project-plan-daily-list"
 import { WorkerDailyList } from "./worker-daily-list"
 
 function getToday() {
@@ -28,6 +29,7 @@ export function DailyReviewPanel() {
       ) : (
         <>
           <DailySummaryCard entries={entries} />
+          <ProjectPlanDailyList entries={entries} />
           <WorkerDailyList entries={entries} />
         </>
       )}

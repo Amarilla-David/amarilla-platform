@@ -19,7 +19,10 @@ export async function airtableFetch<T = Record<string, unknown>>(
     filterByFormula?: string
     sort?: Array<{ field: string; direction: "asc" | "desc" }>
     maxRecords?: number
+    pageSize?: number
     offset?: string
+    tags?: string[]
+    noCache?: boolean
   }
 ): Promise<AirtableListResponse<T>> {
   const params = new URLSearchParams()
@@ -36,19 +39,32 @@ export async function airtableFetch<T = Record<string, unknown>>(
   if (options?.maxRecords) {
     params.set("maxRecords", options.maxRecords.toString())
   }
+  if (options?.pageSize) {
+    params.set("pageSize", options.pageSize.toString())
+  }
   if (options?.offset) {
     params.set("offset", options.offset)
   }
 
   const url = `${AIRTABLE_BASE_URL}/${baseId}/${encodeURIComponent(tableName)}?${params}`
 
-  const response = await fetch(url, {
+  const fetchOptions: RequestInit & { next?: Record<string, unknown> } = {
     headers: {
       Authorization: `Bearer ${AIRTABLE_API_KEY}`,
       "Content-Type": "application/json",
     },
-    next: { revalidate: 60 },
-  })
+  }
+
+  if (options?.noCache) {
+    fetchOptions.cache = "no-store"
+  } else {
+    fetchOptions.next = {
+      revalidate: 60,
+      ...(options?.tags ? { tags: options.tags } : {}),
+    }
+  }
+
+  const response = await fetch(url, fetchOptions)
 
   if (!response.ok) {
     const errorBody = await response.json().catch(() => ({}))
